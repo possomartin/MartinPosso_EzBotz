@@ -38,7 +38,7 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static bool GetUser(string connectionString, string email, string password)
+        public static bool Exists(string connectionString, string email, string password)
         {
             string get = "SELECT * FROM Users WHERE Email='" + email + "' and Password= '" + password + "'";
 

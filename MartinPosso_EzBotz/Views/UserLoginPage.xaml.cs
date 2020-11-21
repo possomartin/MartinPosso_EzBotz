@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace MartinPosso_EzBotz.Views
@@ -33,8 +33,14 @@ namespace MartinPosso_EzBotz.Views
 
         private void SignInBtn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (Users.GetUser((App.Current as App).ConnectionString, EmailTextbox.Text, PasswordTextbox.Password.ToString()))
+            if (Users.Exists((App.Current as App).ConnectionString, EmailTextbox.Text, PasswordTextbox.Password.ToString()))
                 this.Frame.Navigate(typeof(MainPage));
+            else
+            {
+                MessageDialog dialog = new MessageDialog("Los datos ingresados no existen, Intente nuevamente!","Error");
+                dialog.ShowAsync();
+            }
+
         }
 
         private void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
