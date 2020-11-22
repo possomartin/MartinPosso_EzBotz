@@ -9,21 +9,128 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <TextBox x:Name="Stock" HorizontalAlignment="Left" Margin="342,300,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
-            <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="342,362,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
-            <TextBox x:Name="Description" HorizontalAlignment="Left" Margin="342,424,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
-            <ComboBox x:Name="comboList" Margin="342,244,0,0" Width="120">
+            <TextBox
+                x:Name="Stock" HorizontalAlignment="Left" Margin="348,282,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20"/>
+            <TextBox
+                x:Name="Id" HorizontalAlignment="Left" Margin="348,119,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
+            <TextBox
+                x:Name="Name" HorizontalAlignment="Left" Margin="348,362,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20"/>
+            <TextBox
+                x:Name="Description" HorizontalAlignment="Left" Margin="348,430,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120"/>
+            <ComboBox
+                x:Name="comboList" Margin="342,198,0,0" Width="179" CornerRadius="20">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="local:Categories">
-                        <TextBlock Text="{x:Bind Name}" FontSize="10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center"/>
+                        </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" Margin="250,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Categories"/><LineBreak/><Run/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Margin="250,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Stock"/><LineBreak/><Run/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Margin="250,362,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Margin="250,424,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
-            <Button Content="Insertar" Margin="316,500,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,204,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Categories"/><LineBreak/><Run/></TextBlock>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,282,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Stock"/><LineBreak/><Run/></TextBlock>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,362,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,430,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
+            <Button
+                x:Name="insertar" Content="Insertar" Margin="200,852,0,0" VerticalAlignment="Top"
+                Click="Button_Click" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+
+            <ComboBox x:Name="SuppliersCombo" Margin="342,579,0,0" Width="179" CornerRadius="20" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="local:Suppliers">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20"/>
+                            <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10"/>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,579,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Suppliers"/><LineBreak/><Run/></TextBlock>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,119,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="250,659,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Image"/><LineBreak/><Run/></TextBlock>
+            <Image
+                x:Name="productImage"
+                HorizontalAlignment="Left" Height="174" Margin="338,643,0,0"
+                VerticalAlignment="Top" Width="177" Stretch="UniformToFill"/>
+            <Button
+                x:Name="Editar"
+                Content="Editar" Margin="348,852,0,0" VerticalAlignment="Top"
+                Click="UpdateClick" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+            <Button
+                x:Name="Eliminar"
+                Content="Eliminar" Margin="494,852,0,0" VerticalAlignment="Top"
+                Click="EliminarClick" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+            <ListView
+                x:Name="ProductsList" HorizontalAlignment="Left" Height="610"
+                Margin="635,119,0,0" VerticalAlignment="Top" Width="780"
+                SelectionMode="Single" SelectionChanged="selctedItem"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.IsVerticalRailEnabled="True"
+                ScrollViewer.VerticalScrollMode="Enabled"
+                ScrollViewer.HorizontalScrollMode="Enabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.IsHorizontalRailEnabled="True"
+                BorderBrush="#454545" BorderThickness="1">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" BorderBrush="#454545" BorderThickness="0.4">
+                            <TextBlock Text="ID" Margin="8,0" Width="50" TextAlignment="Center"/>
+                            <TextBlock Text="Name" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Categories" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Stock" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Description" Width="200" TextAlignment="Center"/>
+                            <TextBlock Text="Suppliers" Width="100" TextAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Products">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Id}" Width="50" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind Name}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind CategoryID}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind Stock}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind Description}" Width="200" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind SupplierID}" Width="100" TextAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button
+                Content="añadir" Margin="224,708,0,0" VerticalAlignment="Top"
+                CornerRadius="20" Width="88" FontSize="15" Background="#3CB19E" Foreground="#fff" Height="31"
+                Click="addImage"/>
 
 
             <!--

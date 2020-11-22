@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
@@ -8,7 +10,7 @@ namespace MartinPosso_EzBotz.Core.Models
     public class Products
     {
         public int Id { get; set; }
-        
+
         public int CategoryID { get; set; }
         public Categories Categories { get; set; }
 
@@ -23,15 +25,15 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID)
         {
-            string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description +"','" + supplierID + "')"; 
+            string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "')";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                if(connection.State == System.Data.ConnectionState.Open)
+                if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    using(SqlCommand cmd = connection.CreateCommand())
+                    using (SqlCommand cmd = connection.CreateCommand())
                     {
                         cmd.CommandText = add;
                         cmd.ExecuteNonQuery();
@@ -42,5 +44,92 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
+        public static ObservableCollection<Products> GetProducts(string connectionString)
+        {
+            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID from Products where Name is not null";
+
+            var products = new ObservableCollection<Products>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = connection.CreateCommand())
+                        {
+                            cmd.CommandText = get;
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var product = new Products();
+
+                                    product.Id = reader.GetInt32(0);
+                                    product.CategoryID = reader.GetInt32(1);
+                                    product.Stock = reader.GetInt32(2);
+                                    product.Name = reader.GetString(3);
+                                    product.Description = reader.GetString(4);
+                                    product.SupplierID = reader.GetInt32(5);
+
+                                    products.Add(product);
+                                }
+                            }
+                        }
+                    }
+                }
+                return products;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+
+        }
+
+        public static void delete(string connectionString, int id)
+        {
+            string delete = "delete from Products where Id=" + id;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = delete;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public static void UpdateData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, int productID)
+        {
+            string update = "update Products set CategoryID =" + CategoryID + ", Stock =" + stock + ", Name = '" + name + "', Description ='" + description + "', SupplierID =" + supplierID + " where Id = " + productID;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = update;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                connection.Close();
+            }
+
+        }
     }
 }
