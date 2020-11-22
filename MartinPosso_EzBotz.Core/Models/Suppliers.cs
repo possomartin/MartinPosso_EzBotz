@@ -11,5 +11,7 @@ namespace MartinPosso_EzBotz.Core.Models
         public string Name { get; set; }
 
         public string Address { get; set; }
+
+        public List<Products> Products { get; set; }
     }
 }

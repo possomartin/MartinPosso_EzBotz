@@ -38,6 +38,48 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
+        public static ObservableCollection<Users> GetUsers(string connectionString)
+        {
+            string get = "select Id, Name, Email, Password from Users where Name is not null";
+
+            var users = new ObservableCollection<Users>();
+
+            try
+            {
+               using(SqlConnection connection = new SqlConnection(connectionString))
+               {
+                    connection.Open();
+
+                    if(connection.State == System.Data.ConnectionState.Open)
+                    {
+                        using(SqlCommand cmd = connection.CreateCommand())
+                        {
+                            cmd.CommandText = get;
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while(reader.Read())
+                                {
+                                    var user = new Users();
+                                    user.Id = reader.GetInt32(0);
+                                    user.Name = reader.GetString(1);
+                                    user.Email = reader.GetString(2);
+                                    user.Password = reader.GetString(3);
+                                    users.Add(user);
+                                }
+                            }
+                        }
+                    }
+               }
+                return users;
+            }
+            catch(Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+        }
+
         public static bool Exists(string connectionString, string email, string password)
         {
             string get = "SELECT * FROM Users WHERE Email='" + email + "' and Password= '" + password + "'";
