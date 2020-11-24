@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
@@ -20,12 +21,15 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public string Description { get; set; }
 
+        public byte[] Image { get; set; }
+
         public int SupplierID { get; set; }
         public Suppliers Suppliers { get; set; }
 
-        public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID)
+
+        public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, byte[] image)
         {
-            string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "')";
+            string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID, Image) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "','" + image + "')";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -46,7 +50,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static ObservableCollection<Products> GetProducts(string connectionString)
         {
-            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID from Products where Name is not null";
+            string get = "select Id, CategoryID, Stock, Name, Description, Image, SupplierID from Products where Name is not null";
 
             var products = new ObservableCollection<Products>();
 
@@ -73,7 +77,9 @@ namespace MartinPosso_EzBotz.Core.Models
                                     product.Stock = reader.GetInt32(2);
                                     product.Name = reader.GetString(3);
                                     product.Description = reader.GetString(4);
-                                    product.SupplierID = reader.GetInt32(5);
+                                    product.SupplierID = reader.GetInt32(6);
+
+                                    product.Image = (byte [])reader["Image"];
 
                                     products.Add(product);
                                 }

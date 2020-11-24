@@ -5,9 +5,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -17,7 +22,8 @@ namespace MartinPosso_EzBotz.Views
 {
     public sealed partial class ProductManagementPage : Page, INotifyPropertyChanged
     {
-
+        private byte[] buffer;
+        private BitmapImage RetrieveImage = new BitmapImage();
         public ProductManagementPage()
         {
             InitializeComponent();
@@ -53,13 +59,11 @@ namespace MartinPosso_EzBotz.Views
                 var category = (Categories)comboList.SelectedItem;
                 var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
-                Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id);
+                Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, buffer);
                 updateList();
 
-                Id.Text = "";
-                Name.Text = "";
-                Stock.Text = "";
-                Description.Text = "";
+                emptyBoxes();
+                
             }
 
         }
@@ -75,10 +79,7 @@ namespace MartinPosso_EzBotz.Views
             Products.delete((App.Current as App).ConnectionString, product.Id);
             updateList();
 
-            Id.Text = "";
-            Name.Text = "";
-            Stock.Text = "";
-            Description.Text = "";
+            emptyBoxes();
         }
 
         private void selctedItem(object sender, SelectionChangedEventArgs e)
@@ -105,13 +106,11 @@ namespace MartinPosso_EzBotz.Views
             Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id);
             updateList();
 
-            Id.Text = "";
-            Name.Text = "";
-            Stock.Text = "";
-            Description.Text = "";
+            emptyBoxes();
+
         }
 
-        private async void addImage(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void AddImage(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.ViewMode = PickerViewMode.Thumbnail;
@@ -133,14 +132,64 @@ namespace MartinPosso_EzBotz.Views
                     // Load the image from the file stream
                     await image.SetSourceAsync(imageStream);
                     productImage.Source = image;
-                   
+                }
+
+                using (var inputStream = await file.OpenSequentialReadAsync())
+                {
+                    var readStream = inputStream.AsStreamForRead();
+                    buffer = new byte[readStream.Length];
+                    await readStream.ReadAsync(buffer, 0, buffer.Length);
+                    
                 }
 
             }
             else
             {
                  Console.WriteLine("Operation cancelled.");
+                
             }
+        }
+
+        private async void ConvertBytesAsync(byte[] bytes)
+        {
+            BitmapImage bmi = new BitmapImage();
+            int width = 50, height = 50;
+            byte[] buffer = bytes;
+
+            WriteableBitmap wb = new WriteableBitmap(50, 50);
+            using (Stream stream = wb.PixelBuffer.AsStream())
+            {
+                if (stream.CanWrite)
+                {
+                    byte[] pixelArray = new byte[(uint)productImage.Height * (uint)productImage.Width * 4];
+                    int offset;
+
+                    for (int row = 0; row < (uint)productImage.Height; row++)
+                    {
+                        for (int col = 0; col < (uint)productImage.Width; col++)
+                        {
+                            offset = (row * (int)productImage.Width * 4) + (col * 4);
+                            pixelArray[offset] = 0x00;      // Red
+                            pixelArray[offset + 1] = 0xFF;  // Green
+                            pixelArray[offset + 2] = 0x00;  // Blue
+                            pixelArray[offset + 3] = 0xFF;  // Alpha
+                        }
+                    }
+                    await stream.WriteAsync(pixelArray, 0, pixelArray.Length);
+                    stream.Flush();
+                    //bmi = await ByteArrayToImageAsync(buffer);
+                    productImage.Source = wb;
+                }
+            }
+        }
+
+        private void emptyBoxes()
+        {
+            Id.Text = "";
+            Name.Text = "";
+            Stock.Text = "";
+            Description.Text = "";
+            productImage.Source = null;
         }
     }
 }

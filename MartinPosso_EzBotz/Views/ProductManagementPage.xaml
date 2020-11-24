@@ -130,7 +130,7 @@
             <Button
                 Content="añadir" Margin="224,708,0,0" VerticalAlignment="Top"
                 CornerRadius="20" Width="88" FontSize="15" Background="#3CB19E" Foreground="#fff" Height="31"
-                Click="addImage"/>
+                Click="AddImage"/>
 
 
             <!--
