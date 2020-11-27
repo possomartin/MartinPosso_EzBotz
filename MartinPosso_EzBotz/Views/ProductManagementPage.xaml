@@ -94,7 +94,8 @@
             <ListView
                 x:Name="ProductsList" HorizontalAlignment="Left" Height="610"
                 Margin="635,119,0,0" VerticalAlignment="Top" Width="780"
-                SelectionMode="Single" SelectionChanged="selctedItem"
+                SelectionMode="Single" SelectionChanged="SelectedItem"
+                DoubleTapped="Deselect"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.IsVerticalRailEnabled="True"
                 ScrollViewer.VerticalScrollMode="Enabled"

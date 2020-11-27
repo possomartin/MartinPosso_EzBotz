@@ -50,7 +50,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static ObservableCollection<Products> GetProducts(string connectionString)
         {
-            string get = "select Id, CategoryID, Stock, Name, Description, Image, SupplierID from Products where Name is not null";
+            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image from Products where Name is not null";
 
             var products = new ObservableCollection<Products>();
 
@@ -77,8 +77,7 @@ namespace MartinPosso_EzBotz.Core.Models
                                     product.Stock = reader.GetInt32(2);
                                     product.Name = reader.GetString(3);
                                     product.Description = reader.GetString(4);
-                                    product.SupplierID = reader.GetInt32(6);
-
+                                    product.SupplierID = reader.GetInt32(5);
                                     product.Image = (byte [])reader["Image"];
 
                                     products.Add(product);
@@ -97,7 +96,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         }
 
-        public static void delete(string connectionString, int id)
+        public static void Delete(string connectionString, int id)
         {
             string delete = "delete from Products where Id=" + id;
 
