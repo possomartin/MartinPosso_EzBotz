@@ -27,15 +27,15 @@ namespace MartinPosso_EzBotz.Views
         public ProductManagementPage()
         {
             InitializeComponent();
-           comboList.ItemsSource = Categories.GetCategories((App.Current as App).ConnectionString);
-           SuppliersCombo.ItemsSource = Suppliers.GetSuppliers((App.Current as App).ConnectionString);
-            updateList();
+            comboList.ItemsSource = Categories.GetCategories((App.Current as App).ConnectionString);
+            SuppliersCombo.ItemsSource = Suppliers.GetSuppliers((App.Current as App).ConnectionString);
+            UpdateList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
-        {
+        { 
             if (Equals(storage, value))
             {
                 return;
@@ -47,7 +47,7 @@ namespace MartinPosso_EzBotz.Views
 
     private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void AddProduct(object sender, Windows.UI.Xaml.RoutedEventArgs e) //insertar a la base de datos
         {
             if (Stock.Text.Equals("") || Name.Text.Equals(""))
             {
@@ -60,31 +60,32 @@ namespace MartinPosso_EzBotz.Views
                 var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
                 Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, buffer);
-                updateList();
+                UpdateList();
 
-                emptyBoxes();
+                EmptyBoxes();
                 
             }
 
         }
-        public void updateList()
+        public void UpdateList()
         {
             ProductsList.ItemsSource = Products.GetProducts((App.Current as App).ConnectionString);
         }
 
-        private void EliminarClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void EliminarClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Eliminar de la base de datos
         {
             var product = (Products)ProductsList.SelectedItem;
 
-            Products.delete((App.Current as App).ConnectionString, product.Id);
-            updateList();
+            Products.Delete((App.Current as App).ConnectionString, product.Id);
+            UpdateList();
 
-            emptyBoxes();
+            EmptyBoxes();
         }
 
-        private void selctedItem(object sender, SelectionChangedEventArgs e)
+        private void SelectedItem(object sender, SelectionChangedEventArgs e) //Cuando se selecciona un producto del listView
         {
             var product = (Products)ProductsList.SelectedItem;
+            
 
             if (product != null)
             {
@@ -92,11 +93,13 @@ namespace MartinPosso_EzBotz.Views
                 Name.Text = "" + product.Name;
                 Stock.Text = "" + product.Stock;
                 Description.Text = "" + product.Description;
+                ConvertBytes(product.Image);
             }
           
         }
 
-        private void UpdateClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+
+        private void UpdateClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Actualizar informacion a la base de datos
         {
             var category = (Categories)comboList.SelectedItem;
             var supplier = (Suppliers)SuppliersCombo.SelectedItem;
@@ -104,13 +107,13 @@ namespace MartinPosso_EzBotz.Views
             var product = (Products)ProductsList.SelectedItem;
 
             Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id);
-            updateList();
+            UpdateList();
 
-            emptyBoxes();
+            EmptyBoxes();
 
         }
 
-        private async void AddImage(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void AddImage(object sender, Windows.UI.Xaml.RoutedEventArgs e) //añadir imagen a la propiedad UWP image
         {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.ViewMode = PickerViewMode.Thumbnail;
@@ -128,6 +131,7 @@ namespace MartinPosso_EzBotz.Views
                 {
                     var image = new BitmapImage();
                     image.DecodePixelWidth = 100;
+                    image.DecodePixelWidth = 200;
 
                     // Load the image from the file stream
                     await image.SetSourceAsync(imageStream);
@@ -150,46 +154,46 @@ namespace MartinPosso_EzBotz.Views
             }
         }
 
-        private async void ConvertBytesAsync(byte[] bytes)
+        private async void ConvertBytes(byte[] bytes) //Convertir Bytes de Imagen a BitmapImage
         {
-            BitmapImage bmi = new BitmapImage();
-            int width = 50, height = 50;
-            byte[] buffer = bytes;
 
-            WriteableBitmap wb = new WriteableBitmap(50, 50);
-            using (Stream stream = wb.PixelBuffer.AsStream())
+            try
             {
-                if (stream.CanWrite)
+                BitmapImage bmpImage = new BitmapImage();
+                bmpImage.DecodePixelHeight = 100;
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
                 {
-                    byte[] pixelArray = new byte[(uint)productImage.Height * (uint)productImage.Width * 4];
-                    int offset;
-
-                    for (int row = 0; row < (uint)productImage.Height; row++)
-                    {
-                        for (int col = 0; col < (uint)productImage.Width; col++)
-                        {
-                            offset = (row * (int)productImage.Width * 4) + (col * 4);
-                            pixelArray[offset] = 0x00;      // Red
-                            pixelArray[offset + 1] = 0xFF;  // Green
-                            pixelArray[offset + 2] = 0x00;  // Blue
-                            pixelArray[offset + 3] = 0xFF;  // Alpha
-                        }
-                    }
-                    await stream.WriteAsync(pixelArray, 0, pixelArray.Length);
-                    stream.Flush();
-                    //bmi = await ByteArrayToImageAsync(buffer);
-                    productImage.Source = wb;
+                    await stream.WriteAsync(bytes.AsBuffer());
+                    stream.Seek(0);
+                    await bmpImage.SetSourceAsync(stream);
                 }
+
+                productImage.Source = bmpImage;
+
+                
             }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"{exception}");
+            }
+
         }
 
-        private void emptyBoxes()
+        private void EmptyBoxes()
         {
             Id.Text = "";
             Name.Text = "";
             Stock.Text = "";
             Description.Text = "";
             productImage.Source = null;
+            comboList.SelectedItem = null;
+            SuppliersCombo.SelectedItem = null;
+        }
+
+        private void Deselect(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            ProductsList.SelectedItem = null;
+            EmptyBoxes();
         }
     }
 }

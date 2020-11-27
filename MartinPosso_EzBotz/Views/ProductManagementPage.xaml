@@ -51,7 +51,7 @@
                 VerticalAlignment="Top"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
             <Button
                 x:Name="insertar" Content="Insertar" Margin="200,852,0,0" VerticalAlignment="Top"
-                Click="Button_Click" CornerRadius="15"
+                Click="AddProduct" CornerRadius="15"
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
 
             <ComboBox x:Name="SuppliersCombo" Margin="342,579,0,0" Width="179" CornerRadius="20" >
@@ -94,7 +94,8 @@
             <ListView
                 x:Name="ProductsList" HorizontalAlignment="Left" Height="610"
                 Margin="635,119,0,0" VerticalAlignment="Top" Width="780"
-                SelectionMode="Single" SelectionChanged="selctedItem"
+                SelectionMode="Single" SelectionChanged="SelectedItem"
+                DoubleTapped="Deselect"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.IsVerticalRailEnabled="True"
                 ScrollViewer.VerticalScrollMode="Enabled"
