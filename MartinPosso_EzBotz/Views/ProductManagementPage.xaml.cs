@@ -24,6 +24,7 @@ namespace MartinPosso_EzBotz.Views
     {
         private byte[] buffer;
         private BitmapImage RetrieveImage = new BitmapImage();
+        private string path;
         public ProductManagementPage()
         {
             InitializeComponent();
@@ -59,7 +60,7 @@ namespace MartinPosso_EzBotz.Views
                 var category = (Categories)comboList.SelectedItem;
                 var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
-                Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, buffer);
+                Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path);
                 UpdateList();
 
                 EmptyBoxes();
@@ -93,7 +94,7 @@ namespace MartinPosso_EzBotz.Views
                 Name.Text = "" + product.Name;
                 Stock.Text = "" + product.Stock;
                 Description.Text = "" + product.Description;
-                ConvertBytes(product.Image);
+                getImage(product.Image);
             }
           
         }
@@ -124,6 +125,8 @@ namespace MartinPosso_EzBotz.Views
 
             StorageFile file = await openPicker.PickSingleFileAsync();
 
+            StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path);
+
             if (file != null)
             {
                 var imageFile = file;
@@ -133,17 +136,17 @@ namespace MartinPosso_EzBotz.Views
                     image.DecodePixelWidth = 100;
                     image.DecodePixelWidth = 200;
 
+                    //store image into Assets/Photos folder
+                    await imageFile.CopyAsync(folder, Name.Text + imageFile.FileType.ToString());
+
+                    path = folder.Path + "\\" + Name.Text + imageFile.FileType.ToString();
+
+                    MessageDialog msg = new MessageDialog(path);
+                    await msg.ShowAsync();
+
                     // Load the image from the file stream
                     await image.SetSourceAsync(imageStream);
                     productImage.Source = image;
-                }
-
-                using (var inputStream = await file.OpenSequentialReadAsync())
-                {
-                    var readStream = inputStream.AsStreamForRead();
-                    buffer = new byte[readStream.Length];
-                    await readStream.ReadAsync(buffer, 0, buffer.Length);
-                    
                 }
 
             }
@@ -154,28 +157,19 @@ namespace MartinPosso_EzBotz.Views
             }
         }
 
-        private async void ConvertBytes(byte[] bytes) //Convertir Bytes de Imagen a BitmapImage
+        private async void getImage(string sourcePath) //Convertir Bytes de Imagen a BitmapImage
         {
-
-            try
+            using (var f =  File.Open(sourcePath, FileMode.Open))
             {
-                BitmapImage bmpImage = new BitmapImage();
-                bmpImage.DecodePixelHeight = 100;
-                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-                {
-                    await stream.WriteAsync(bytes.AsBuffer());
-                    stream.Seek(0);
-                    await bmpImage.SetSourceAsync(stream);
-                }
+                    var image = new BitmapImage();
+                    image.DecodePixelWidth = 100;
+                    image.DecodePixelWidth = 200;
 
-                productImage.Source = bmpImage;
+                    // Load the image from the file stream
+                    await image.SetSourceAsync(f.AsRandomAccessStream());
+                    productImage.Source = image;
+            }
 
-                
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine($"{exception}");
-            }
 
         }
 

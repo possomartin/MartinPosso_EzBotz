@@ -21,13 +21,13 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public string Description { get; set; }
 
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public int SupplierID { get; set; }
         public Suppliers Suppliers { get; set; }
 
 
-        public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, byte[] image)
+        public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, string image)
         {
             string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID, Image) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "','" + image + "')";
 
@@ -78,7 +78,7 @@ namespace MartinPosso_EzBotz.Core.Models
                                     product.Name = reader.GetString(3);
                                     product.Description = reader.GetString(4);
                                     product.SupplierID = reader.GetInt32(5);
-                                    product.Image = (byte [])reader["Image"];
+                                    product.Image = reader.GetString(6);
 
                                     products.Add(product);
                                 }
