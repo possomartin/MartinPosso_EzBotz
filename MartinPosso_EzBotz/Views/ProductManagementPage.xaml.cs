@@ -62,7 +62,7 @@ namespace MartinPosso_EzBotz.Views
                     var category = (Categories)comboList.SelectedItem;
                     var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
-                    Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path);
+                    Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path, decimal.Parse(Price.Text));
                     UpdateList();
 
                     EmptyBoxes();
@@ -101,6 +101,7 @@ namespace MartinPosso_EzBotz.Views
                 Name.Text = "" + product.Name;
                 Stock.Text = "" + product.Stock;
                 Description.Text = "" + product.Description;
+                Price.Text = "" + product.Price;
                 getImage(product.Image);
             }
           
@@ -116,7 +117,7 @@ namespace MartinPosso_EzBotz.Views
 
                 var product = (Products)ProductsList.SelectedItem;
 
-                Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id, path);
+                Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id, path, decimal.Parse(Price.Text));
                 UpdateList();
 
                 EmptyBoxes();
@@ -206,6 +207,7 @@ namespace MartinPosso_EzBotz.Views
             Name.Text = "";
             Stock.Text = "";
             Description.Text = "";
+            Price.Text = "";
             productImage.Source = null;
             comboList.SelectedItem = null;
             SuppliersCombo.SelectedItem = null;
