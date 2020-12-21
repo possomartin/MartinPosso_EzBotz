@@ -11,16 +11,16 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <TextBox
                 x:Name="Stock" HorizontalAlignment="Left" Margin="348,282,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="1"/>
             <TextBox
                 x:Name="Id" HorizontalAlignment="Left" Margin="348,119,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
             <TextBox
                 x:Name="Name" HorizontalAlignment="Left" Margin="348,362,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="2"/>
             <TextBox
                 x:Name="Description" HorizontalAlignment="Left" Margin="348,430,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120" TabIndex="3"/>
             <ComboBox
                 x:Name="comboList" Margin="342,198,0,0" Width="179" CornerRadius="20">
                 <ComboBox.ItemTemplate>

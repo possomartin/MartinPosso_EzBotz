@@ -50,21 +50,28 @@ namespace MartinPosso_EzBotz.Views
 
         private void AddProduct(object sender, Windows.UI.Xaml.RoutedEventArgs e) //insertar a la base de datos
         {
-            if (Stock.Text.Equals("") || Name.Text.Equals(""))
+            try
             {
-                MessageDialog msg = new MessageDialog("Faltan Datos Por Completar");
-                msg.ShowAsync();
+                if (Stock.Text.Equals("") || Name.Text.Equals(""))
+                {
+                    MessageDialog msg = new MessageDialog("Faltan Datos Por Completar");
+                    msg.ShowAsync();
+                }
+                else
+                {
+                    var category = (Categories)comboList.SelectedItem;
+                    var supplier = (Suppliers)SuppliersCombo.SelectedItem;
+
+                    Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path);
+                    UpdateList();
+
+                    EmptyBoxes();
+
+                }
             }
-            else
+            catch(Exception ex)
             {
-                var category = (Categories)comboList.SelectedItem;
-                var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
-                Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path);
-                UpdateList();
-
-                EmptyBoxes();
-                
             }
 
         }
@@ -102,15 +109,22 @@ namespace MartinPosso_EzBotz.Views
 
         private void UpdateClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Actualizar informacion a la base de datos
         {
-            var category = (Categories)comboList.SelectedItem;
-            var supplier = (Suppliers)SuppliersCombo.SelectedItem;
+            try
+            {
+                var category = (Categories)comboList.SelectedItem;
+                var supplier = (Suppliers)SuppliersCombo.SelectedItem;
 
-            var product = (Products)ProductsList.SelectedItem;
+                var product = (Products)ProductsList.SelectedItem;
 
-            Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id);
-            UpdateList();
+                Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id, path);
+                UpdateList();
 
-            EmptyBoxes();
+                EmptyBoxes();
+            }
+            catch(Exception ex)
+            {
+
+            }
 
         }
 
@@ -136,12 +150,19 @@ namespace MartinPosso_EzBotz.Views
                     image.DecodePixelWidth = 100;
                     image.DecodePixelWidth = 200;
 
-                    //store image into Assets/Photos folder
-                    await imageFile.CopyAsync(folder, Name.Text + imageFile.FileType.ToString());
-
                     path = folder.Path + "\\" + Name.Text + imageFile.FileType.ToString();
 
-                    MessageDialog msg = new MessageDialog(path);
+                    
+
+                    if (File.Exists(path))
+                    {
+                        //If exists deletes the file and replaces it with the new one.
+                        File.Delete(path);
+                    }
+                        //store image into Assets/Photos folder
+                    await imageFile.CopyAsync(folder, Name.Text + imageFile.FileType.ToString());
+
+                    MessageDialog msg = new MessageDialog(imageFile.Path);
                     await msg.ShowAsync();
 
                     // Load the image from the file stream
@@ -159,8 +180,10 @@ namespace MartinPosso_EzBotz.Views
 
         private async void getImage(string sourcePath) //Convertir Bytes de Imagen a BitmapImage
         {
-            using (var f =  File.Open(sourcePath, FileMode.Open))
+            try
             {
+                using (var f = File.Open(sourcePath, FileMode.Open))
+                {
                     var image = new BitmapImage();
                     image.DecodePixelWidth = 100;
                     image.DecodePixelWidth = 200;
@@ -168,8 +191,12 @@ namespace MartinPosso_EzBotz.Views
                     // Load the image from the file stream
                     await image.SetSourceAsync(f.AsRandomAccessStream());
                     productImage.Source = image;
+                }
             }
+            catch(Exception e)
+            {
 
+            }
 
         }
 

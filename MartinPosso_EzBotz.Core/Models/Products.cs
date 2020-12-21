@@ -115,9 +115,9 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static void UpdateData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, int productID)
+        public static void UpdateData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, int productID, string image)
         {
-            string update = "update Products set CategoryID =" + CategoryID + ", Stock =" + stock + ", Name = '" + name + "', Description ='" + description + "', SupplierID =" + supplierID + " where Id = " + productID;
+            string update = "update Products set CategoryID =" + CategoryID + ", Stock =" + stock + ", Name = '" + name + "', Description ='" + description + "', SupplierID =" + supplierID + ", Image ='" + image + "' where Id = " + productID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
