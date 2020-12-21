@@ -13,7 +13,7 @@ namespace MartinPosso_EzBotz.Core.Models
         public int Id { get; set; }
 
         public int CategoryID { get; set; }
-        public Categories Categories { get; set; }
+        public virtual Categories Categories { get; set; }
 
         public int Stock { get; set; }
 
@@ -24,7 +24,7 @@ namespace MartinPosso_EzBotz.Core.Models
         public string Image { get; set; }
 
         public int SupplierID { get; set; }
-        public Suppliers Suppliers { get; set; }
+        public virtual Suppliers Suppliers { get; set; }
 
 
         public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, string image)
@@ -51,6 +51,54 @@ namespace MartinPosso_EzBotz.Core.Models
         public static ObservableCollection<Products> GetProducts(string connectionString)
         {
             string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image from Products where Name is not null";
+
+            var products = new ObservableCollection<Products>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = connection.CreateCommand())
+                        {
+                            cmd.CommandText = get;
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var product = new Products();
+
+                                    product.Id = reader.GetInt32(0);
+                                    product.CategoryID = reader.GetInt32(1);
+                                    product.Stock = reader.GetInt32(2);
+                                    product.Name = reader.GetString(3);
+                                    product.Description = reader.GetString(4);
+                                    product.SupplierID = reader.GetInt32(5);
+                                    product.Image = reader.GetString(6);
+
+                                    products.Add(product);
+                                }
+                            }
+                        }
+                    }
+                }
+                return products;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+
+        }
+
+        public static ObservableCollection<Products> OrderBy(string connectionString, string order)
+        {
+            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image from Products where Name is not null ORDER BY Id " + order + ", CategoryID " + order + ", Stock " + order + ", Name " + order + ", Description " + order + ", SupplierID " + order + ", Image " + order + "";
 
             var products = new ObservableCollection<Products>();
 

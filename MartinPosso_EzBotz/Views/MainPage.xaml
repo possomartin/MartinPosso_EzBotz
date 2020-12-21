@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="using:MartinPosso_EzBotz.Core.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
@@ -13,6 +13,45 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
+            <FlipView x:Name="FlipView"
+                Height="450" VerticalAlignment="Top">
+                <Image Source="/Assets/ready-player-one-banner.jpg" Stretch="Fill"/>
+                <Image Source="/Assets/sucker-punch-poster-banner-hi-res.jpg" Stretch="Fill"/>
+                <Image Source="/Assets/Deadpool-2016-1.jpg" Stretch="Fill"/>
+            </FlipView>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="12" Width="1450" Height="400">
+                <GridView x:Name="ProductGallery">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Products">
+                            <StackPanel Margin="12">
+                                <Image Source="{x:Bind Image}" Height="256" Width="256" Stretch="Uniform"/>
+                                <TextBlock Text="{x:Bind Name}" HorizontalTextAlignment="Center" Margin="12" Foreground="#757575"/>
+                                <Button Background="#e3e3e3" HorizontalAlignment="Center" CornerRadius="15">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Assets/Icon awesome-cart-arrow-down.png" Height="20" Width="20"/>
+                                        <TextBlock Text="Add to cart" Margin="12" Foreground="#757575" FontSize="11" TextDecorations="Underline"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </ScrollViewer>
+            <TextBox x:Name="searchBar"
+                HorizontalAlignment="Left" Margin="1053,10,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="299"/>
+            <Button
+                x:Name="searchButton"
+                Content="Search" Margin="1382,10,0,0" VerticalAlignment="Top"
+                CornerRadius="15" Foreground="#fff" Background="#3CB19E" Click="searchButton_Click"/>
+            <HyperlinkButton Content="Best Sellings" Margin="770,455,0,0" VerticalAlignment="Top" Click="BestSellings"/>
+            <HyperlinkButton Content="Featured" Margin="899,455,0,0" VerticalAlignment="Top" Click="Featured"/>
+            <HyperlinkButton Content="Now" Margin="1007,455,0,0" VerticalAlignment="Top" Click="Now"/>
         </Grid>
     </Grid>
 </Page>
