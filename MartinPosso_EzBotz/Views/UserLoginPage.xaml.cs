@@ -11,6 +11,7 @@ namespace MartinPosso_EzBotz.Views
 {
     public sealed partial class UserLoginPage : Page, INotifyPropertyChanged
     {
+        public Users userLogin { get; set; }
         public UserLoginPage()
         {
             InitializeComponent();
@@ -31,14 +32,18 @@ namespace MartinPosso_EzBotz.Views
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private void SignInBtn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void SignInBtn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+
             if (Users.Exists((App.Current as App).ConnectionString, EmailTextbox.Text, PasswordTextbox.Password.ToString()))
-                this.Frame.Navigate(typeof(MainPage));
+            {
+                this.Frame.Navigate(typeof(MainPage), EmailTextbox.Text);
+            }
             else
             {
-                MessageDialog dialog = new MessageDialog("Los datos ingresados no existen, Intente nuevamente!","Error");
-                dialog.ShowAsync();
+                MessageDialog dialog = new MessageDialog("Los datos ingresados no existen, Intente nuevamente!", "Error");
+                await dialog.ShowAsync();
+                this.Frame.Navigate(typeof(UserLoginPage));
             }
 
         }

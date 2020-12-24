@@ -3,16 +3,161 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:local="using:MartinPosso_EzBotz.Core.Models"
+    
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" BorderThickness="2" BorderBrush="#454545" Margin="13">
+                    <Image Source="/Assets/Icon awesome-credit-card.png" Height="72" Margin="133,123,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64"/>
+                    <Image Source="/Assets/Icon metro-discover.png" HorizontalAlignment="Left" Height="46" Margin="379,324,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon metro-visa.png" HorizontalAlignment="Left" Height="46" Margin="428,324,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon payment-diners.png" HorizontalAlignment="Left" Height="46" Margin="482,325,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon simple-paypal.png" HorizontalAlignment="Left" Height="46" Margin="531,324,0,0" VerticalAlignment="Top" Width="24"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="124,214,0,0"
+                        Text="Card Holder Information" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#454545" FontSize="24"/>
+
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="229,128,0,0"
+                        Text="credit card" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575" FontSize="18"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="35,29,0,0" Text="Shopping cart"
+                        TextWrapping="Wrap" VerticalAlignment="Top"
+                        Height="33" Width="180" FontSize="25" Foreground="#454545"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="132,280,0,0"
+                        Text="Card Number" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <TextBox
+                        x:Name="card" HorizontalAlignment="Left" Margin="132,320,0,0" Text=""
+                        TextWrapping="Wrap" VerticalAlignment="Top" Width="194" TabIndex="2147483625"
+                        MaxLength="16" BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" />
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="137,378,0,0"
+                        Text="Expiration Date" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <ComboBox
+                        x:Name="Month" RenderTransformOrigin="1.156,7.875"
+                        Margin="137,422,0,0" Width="146" CornerRadius="20">
+                        <ComboBoxItem>Enero</ComboBoxItem>
+                        <ComboBoxItem>Febrero</ComboBoxItem>
+                        <ComboBoxItem>Marzo</ComboBoxItem>
+                        <ComboBoxItem>Abril</ComboBoxItem>
+                        <ComboBoxItem>Mayo</ComboBoxItem>
+                        <ComboBoxItem>Junio</ComboBoxItem>
+                        <ComboBoxItem>Julio</ComboBoxItem>
+                        <ComboBoxItem>Agosto</ComboBoxItem>
+                        <ComboBoxItem>Septiembre</ComboBoxItem>
+                        <ComboBoxItem>Octubre</ComboBoxItem>
+                        <ComboBoxItem>Noviembre</ComboBoxItem>
+                        <ComboBoxItem>Diciembre</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="Year" Margin="327,422,0,0" Width="120"
+                        CornerRadius="20">
+                        <ComboBoxItem>2021</ComboBoxItem>
+                        <ComboBoxItem>2022</ComboBoxItem>
+                        <ComboBoxItem>2023</ComboBoxItem>
+                        <ComboBoxItem>2024</ComboBoxItem>
+                        <ComboBoxItem>2025</ComboBoxItem>
+                        <ComboBoxItem>2026</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="139,487,0,0"
+                        Text="CVV" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="143,570,0,0"
+                        Text="Address" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="143,676,0,0"
+                        Text="Phone" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <TextBox
+                        x:Name="codigo" HorizontalAlignment="Left" Margin="208,510,0,0"
+                        Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
+                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="189"/>
+                    <TextBox
+                        x:Name="address" HorizontalAlignment="Left" Margin="212,574,0,0"
+                        Text="" TextWrapping="Wrap" VerticalAlignment="Top"
+                        CornerRadius="20" Width="189" Height="88"/>
+                    <TextBox
+                        x:Name="phone" HorizontalAlignment="Left" Margin="212,689,0,0"
+                        Text="" TextWrapping="Wrap" VerticalAlignment="Top"
+                        CornerRadius="20" Width="189"/>
+                    <Button
+                        x:Name="Cancel" Foreground="#FFF" Background="#F67B7B"
+                        Width="167" Height="45" CornerRadius="20"
+                        Content="Cancel" FontSize="20" FontFamily="Arial" Margin="0,749,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Click="Cancel_Click"/>
+                </Grid>
+                <Grid Grid.Column="1" BorderBrush="#454545" BorderThickness="2" Margin="13">
+                    <ListView
+                        x:Name="Carrito" HorizontalAlignment="Center"
+                        Width="498" Margin="0,173,0,529" SelectionMode="Single">
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Background="#757575" Margin="0,0,0,12">
+                                    <TextBlock Text="Photo" Width="200" TextAlignment="Center" Foreground="#fff"/>
+                                    <TextBlock Text="Name" Width="150" TextAlignment="Center" Foreground="#fff"/>
+                                    <TextBlock Text="Price" Width="150" TextAlignment="Center" Foreground="#fff"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Products">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{x:Bind Image}" Width="200"/>
+                                    <TextBlock Text="{x:Bind Name}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind Price}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button
+                        x:Name="Save" Content="Confirm Purchase" CornerRadius="20"
+                        Foreground="#fff" Background="#454545" FontFamily="Arial"
+                        HorizontalAlignment="Center" Margin="0,768,0,0" VerticalAlignment="Top" Width="227" Height="44" Click="Save_Click"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="226,684,0,0" Text="Need help?"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" Foreground="#757575"/>
+                    <HyperlinkButton
+                        Content="Contact us" Foreground="#3756A8" FontSize="24"
+                        Margin="363,679,0,0" VerticalAlignment="Top"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="101,83,0,0" Text="Order Summary"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" Foreground="#454545"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="111,479,0,0" Text="Cost"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#757575"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="109,562,0,0" Text="Total Cost"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#757575"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="467,564,0,0" Text="USD"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#757575"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="469,484,0,0" Text="USD"
+                        TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#757575"/>
+                    <TextBox x:Name="cost"
+                        HorizontalAlignment="Left" Margin="554,480,0,0" Text=""
+                        TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+                    <TextBox x:Name="TotalCost"
+                        HorizontalAlignment="Left" Margin="556,560,0,0" Text=""
+                        TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+                </Grid>
+            </Grid>
+
         </Grid>
     </Grid>
 </Page>

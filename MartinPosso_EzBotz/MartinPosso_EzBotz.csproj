@@ -226,6 +226,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Deadpool-2016-1.jpg" />
+    <Content Include="Assets\Icon awesome-cc-mastercard.png" />
+    <Content Include="Assets\Icon awesome-credit-card.png" />
+    <Content Include="Assets\Icon metro-discover.png" />
+    <Content Include="Assets\Icon metro-visa.png" />
+    <Content Include="Assets\Icon payment-diners.png" />
+    <Content Include="Assets\Icon simple-paypal.png" />
     <Content Include="Assets\ready-player-one-banner.jpg" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Icon awesome-cart-arrow-down.png" />

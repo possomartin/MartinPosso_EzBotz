@@ -26,7 +26,7 @@
                             <StackPanel Margin="12">
                                 <Image Source="{x:Bind Image}" Height="256" Width="256" Stretch="Uniform"/>
                                 <TextBlock Text="{x:Bind Name}" HorizontalTextAlignment="Center" Margin="12" Foreground="#757575"/>
-                                <Button Background="#e3e3e3" HorizontalAlignment="Center" CornerRadius="15">
+                                <Button Background="#e3e3e3" HorizontalAlignment="Center" CornerRadius="15" Click="addcart">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="/Assets/Icon awesome-cart-arrow-down.png" Height="20" Width="20"/>
                                         <TextBlock Text="Add to cart" Margin="12" Foreground="#757575" FontSize="11" TextDecorations="Underline"/>

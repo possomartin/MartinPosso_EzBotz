@@ -83,7 +83,7 @@
             <Image
                 x:Name="productImage"
                 HorizontalAlignment="Left" Height="174" Margin="336,652,0,0"
-                VerticalAlignment="Top" Width="177" Stretch="UniformToFill"/>
+                VerticalAlignment="Top" Width="177" Stretch="Uniform"/>
             <Button
                 x:Name="Editar"
                 Content="Editar" Margin="353,876,0,0" VerticalAlignment="Top"

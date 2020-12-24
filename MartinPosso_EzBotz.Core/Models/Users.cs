@@ -12,13 +12,13 @@ namespace MartinPosso_EzBotz.Core.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
-
-        public static void AddData(string connectionString, string name, string email, string password)
+        public static void AddData(string connectionString, string name, string lastname, string email, string password)
         {
-            string add = "INSERT INTO Users (Name,Email,Password) VALUES ('" + name + "','" + email + "','" + password + "')";
+            string add = "INSERT INTO Users (Name,LastName,Email,Password) VALUES ('" + name + "','" + lastname + "','" + email + "','" + password + "')";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -40,7 +40,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static ObservableCollection<Users> GetUsers(string connectionString)
         {
-            string get = "select Id, Name, Email, Password from Users where Name is not null";
+            string get = "select Id, Name, LastName, Email, Password from Users where Name is not null";
 
             var users = new ObservableCollection<Users>();
 
@@ -63,8 +63,9 @@ namespace MartinPosso_EzBotz.Core.Models
                                     var user = new Users();
                                     user.Id = reader.GetInt32(0);
                                     user.Name = reader.GetString(1);
-                                    user.Email = reader.GetString(2);
-                                    user.Password = reader.GetString(3);
+                                    user.LastName = reader.GetString(2);
+                                    user.Email = reader.GetString(3);
+                                    user.Password = reader.GetString(4);
                                     users.Add(user);
                                 }
                             }
@@ -101,10 +102,9 @@ namespace MartinPosso_EzBotz.Core.Models
                     {
                         return false;
                     }
-                }
-                connection.Close();
+                }   
             }
-
         }
+
     }
 }

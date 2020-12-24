@@ -27,7 +27,6 @@ namespace MartinPosso_EzBotz.Core.Models
         public int SupplierID { get; set; }
         public virtual Suppliers Suppliers { get; set; }
 
-
         public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, string image, decimal price)
         {
             string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID, Image, Price) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "','" + image + "'," + price + ")";
