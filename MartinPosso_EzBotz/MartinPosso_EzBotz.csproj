@@ -138,8 +138,14 @@
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="Views\CategoriesManagementPage.xaml.cs">
+      <DependentUpon>CategoriesManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderManagementPage.xaml.cs">
+      <DependentUpon>OrderManagementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductManagementPage.xaml.cs">
       <DependentUpon>ProductManagementPage.xaml</DependentUpon>
@@ -153,8 +159,14 @@
     <Compile Include="Views\ShopPage.xaml.cs">
       <DependentUpon>ShopPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SupplierManagementPage.xaml.cs">
+      <DependentUpon>SupplierManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserLoginPage.xaml.cs">
       <DependentUpon>UserLoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserManagementPage.xaml.cs">
+      <DependentUpon>UserManagementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserRegistrationPage.xaml.cs">
       <DependentUpon>UserRegistrationPage.xaml</DependentUpon>
@@ -187,9 +199,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CategoriesManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductManagementPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -207,9 +227,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SupplierManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserLoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserRegistrationPage.xaml">
       <Generator>MSBuild:Compile</Generator>

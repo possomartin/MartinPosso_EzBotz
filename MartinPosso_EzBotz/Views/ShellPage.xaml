@@ -26,14 +26,17 @@
             Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_Main" helpers:NavHelper.NavigateTo="views:MainPage" />
-            <winui:NavigationViewItem x:Uid="Shell_UserLogin" helpers:NavHelper.NavigateTo="views:UserLoginPage" />
-            <winui:NavigationViewItem x:Uid="Shell_UserRegistration" helpers:NavHelper.NavigateTo="views:UserRegistrationPage" />
-            <winui:NavigationViewItem x:Uid="Shell_ProductManagement" helpers:NavHelper.NavigateTo="views:ProductManagementPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Shop" helpers:NavHelper.NavigateTo="views:ShopPage" />
+            <winui:NavigationViewItem Content="Main" helpers:NavHelper.NavigateTo="views:MainPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Product Management" helpers:NavHelper.NavigateTo="views:ProductManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Order Management" helpers:NavHelper.NavigateTo="views:OrderManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="User Management" helpers:NavHelper.NavigateTo="views:UserManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Supplier Management" helpers:NavHelper.NavigateTo="views:SupplierManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Cart" helpers:NavHelper.NavigateTo="views:ShopPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Login" helpers:NavHelper.NavigateTo="views:UserLoginPage" FontSize="12" Margin="400,0,0,0"/>
+            <winui:NavigationViewItem Content="Register" helpers:NavHelper.NavigateTo="views:UserRegistrationPage" FontSize="12"/>
         </winui:NavigationView.MenuItems>
         <Grid>
-            <Frame x:Name="shellFrame" />
+            <Frame x:Name="shellFrame"/>
         </Grid>
     </winui:NavigationView>
 </Page>

@@ -50,7 +50,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static ObservableCollection<Products> GetProducts(string connectionString)
         {
-            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image, Price from Products where Name is not null";
+            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image, Price from Products where Id is not null";
 
             var products = new ObservableCollection<Products>();
 
