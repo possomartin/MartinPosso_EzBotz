@@ -8,60 +8,21 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
-
-        <ComboBox
-                x:Name="comboProducts" Margin="353,260,0,0" Width="179" CornerRadius="20" TabIndex="1">
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="local:Products">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <ComboBox
-                x:Name="comboUsers" Margin="353,336,0,0" Width="179" CornerRadius="20" TabIndex="2">
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="local:Users">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <ComboBox
-                x:Name="comboClient" Margin="353,404,0,0" Width="179" CornerRadius="20" TabIndex="3">
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="local:People">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <TextBox
+                x:Name="Name" HorizontalAlignment="Left" Margin="353,265,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1"/>
+        <TextBox
+                x:Name="LastName" HorizontalAlignment="Left" Margin="353,325,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="2"/>
+        <TextBox
+                x:Name="Email" HorizontalAlignment="Left" Margin="353,396,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="3"/>
         <TextBox
                 x:Name="Id" HorizontalAlignment="Left" Margin="353,188,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
         <TextBox
-                x:Name="Price" HorizontalAlignment="Left" Margin="353,481,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="4" IsReadOnly="True"/>
+                x:Name="Password" HorizontalAlignment="Left" Margin="353,481,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="4"/>
         <TextBlock
                 HorizontalAlignment="Left" Margin="255,265,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>

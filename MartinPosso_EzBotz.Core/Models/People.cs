@@ -87,6 +87,28 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
+        public static void UpdateData(String connectionString, string name, string lastname, string address, string email, string telefono, int userID, int personID)
+        {
+            string update = "update People set Name ='" + name + "', LastName ='" + lastname + "', Address = '" + address + "', Email = '" + email + "', Telefono = '" + telefono + "', UserID = " + userID +  " where Id = " + personID;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = update;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                connection.Close();
+            }
+
+        }
+
         public static void Delete(string connectionString, int id)
         {
             string delete = "delete from People where Id=" + id;

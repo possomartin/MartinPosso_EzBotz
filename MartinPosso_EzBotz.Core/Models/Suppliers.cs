@@ -59,5 +59,66 @@ namespace MartinPosso_EzBotz.Core.Models
             }
             return null;
         }
+
+        public static void AddData(string connectionString, string name, string address)
+        {
+            string add = "INSERT INTO Suppliers (Name, Address) values ('" + name + "','" + address + "')";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = add;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        public static void UpdateData(String connectionString, string name, string address, int supplierID)
+        {
+            string update = "update Suppliers set Name ='" + name + "', Address ='" + address + "' where Id = " + supplierID;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = update;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                connection.Close();
+            }
+
+        }
+
+        public static void Delete(string connectionString, int id)
+        {
+            string delete = "delete from Suppliers where Id=" + id;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = delete;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
     }
 }

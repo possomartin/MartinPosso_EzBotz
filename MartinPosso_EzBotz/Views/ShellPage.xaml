@@ -30,9 +30,11 @@
             <winui:NavigationViewItem Content="Product Management" helpers:NavHelper.NavigateTo="views:ProductManagementPage" FontSize="12"/>
             <winui:NavigationViewItem Content="Order Management" helpers:NavHelper.NavigateTo="views:OrderManagementPage" FontSize="12"/>
             <winui:NavigationViewItem Content="User Management" helpers:NavHelper.NavigateTo="views:UserManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="Category Management" helpers:NavHelper.NavigateTo="views:CategoriesManagementPage" FontSize="12"/>
             <winui:NavigationViewItem Content="Supplier Management" helpers:NavHelper.NavigateTo="views:SupplierManagementPage" FontSize="12"/>
+            <winui:NavigationViewItem Content="People Management" helpers:NavHelper.NavigateTo="views:PeopleManagementPage" FontSize="12"/>
             <winui:NavigationViewItem Content="Cart" helpers:NavHelper.NavigateTo="views:ShopPage" FontSize="12"/>
-            <winui:NavigationViewItem Content="Login" helpers:NavHelper.NavigateTo="views:UserLoginPage" FontSize="12" Margin="400,0,0,0"/>
+            <winui:NavigationViewItem Content="Login" helpers:NavHelper.NavigateTo="views:UserLoginPage" FontSize="12" Margin="300,0,0,0"/>
             <winui:NavigationViewItem Content="Register" helpers:NavHelper.NavigateTo="views:UserRegistrationPage" FontSize="12"/>
         </winui:NavigationView.MenuItems>
         <Grid>

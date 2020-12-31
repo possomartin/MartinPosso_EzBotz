@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="MartinPosso_EzBotz.Views.PeopleManagementPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MartinPosso_EzBotz.Core.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBox
+                x:Name="Name" HorizontalAlignment="Left" Margin="353,265,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1" IsReadOnly="True"/>
+        <TextBox
+                x:Name="LastName" HorizontalAlignment="Left" Margin="353,325,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="2" IsReadOnly="True"/>
+        <TextBox
+                x:Name="Email" HorizontalAlignment="Left" Margin="347,523,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="4" IsReadOnly="True"/>
+        <TextBox
+                x:Name="Telefono" HorizontalAlignment="Left" Margin="347,594,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="5"/>
+        <TextBox
+                x:Name="Id" HorizontalAlignment="Left" Margin="353,188,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
+        <TextBox
+                x:Name="Address" HorizontalAlignment="Left" Margin="353,399,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="101" TabIndex="3"/>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="255,265,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="255,338,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="LastName"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="256,537,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Email"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="253,595,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Telefono"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="253,662,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="ClientID"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="255,400,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Address"/><LineBreak/><Run/></TextBlock>
+        <Button
+                x:Name="insertar" Content="Insertar" Margin="201,740,0,0" VerticalAlignment="Top"
+                Click="AddPeople" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+        <TextBlock
+                HorizontalAlignment="Left" Margin="255,188,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
+
+        <ComboBox
+                x:Name="comboUser" Margin="347,657,0,0" Width="179" CornerRadius="20" SelectionChanged="comboUserSelection" TabIndex="6">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="local:Users">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button
+                x:Name="Editar"
+                Content="Editar" Margin="349,740,0,0" VerticalAlignment="Top"
+                Click="UpdateClick" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+        <Button
+                x:Name="Eliminar"
+                Content="Eliminar" Margin="495,740,0,0" VerticalAlignment="Top"
+                Click="EliminarClick" CornerRadius="15"
+                Background="#3CB19E" Foreground="#fff" Width="90"/>
+        <ListView
+                x:Name="PeopleList" HorizontalAlignment="Left" Height="726"
+                Margin="632,46,0,0" VerticalAlignment="Top" Width="780"
+                SelectionMode="Single" SelectionChanged="SelectedItem"
+                DoubleTapped="Deselect"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.IsVerticalRailEnabled="True"
+                ScrollViewer.VerticalScrollMode="Enabled"
+                ScrollViewer.HorizontalScrollMode="Enabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.IsHorizontalRailEnabled="True"
+                BorderBrush="#454545" BorderThickness="1">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" BorderBrush="#454545" BorderThickness="0.4">
+                        <TextBlock Text="ID" Margin="8,0" Width="50" TextAlignment="Center"/>
+                        <TextBlock Text="Name" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="LastName" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="Address" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="Email" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="Telefono" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="UserID" Width="50" TextAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:People">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{x:Bind Id}" Width="50" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Name}" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind LastName}" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Address}" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Email}" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Telefono}" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind UserID}" Width="50" TextAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
