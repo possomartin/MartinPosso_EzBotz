@@ -48,14 +48,14 @@ namespace MartinPosso_EzBotz.Views
 
     private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private void AddProduct(object sender, Windows.UI.Xaml.RoutedEventArgs e) //insertar a la base de datos
+        private async void AddProduct(object sender, Windows.UI.Xaml.RoutedEventArgs e) //insertar a la base de datos
         {
             try
             {
                 if (Stock.Text.Equals("") || Name.Text.Equals(""))
                 {
                     MessageDialog msg = new MessageDialog("Faltan Datos Por Completar");
-                    msg.ShowAsync();
+                    await msg.ShowAsync();
                 }
                 else
                 {
@@ -117,6 +117,14 @@ namespace MartinPosso_EzBotz.Views
 
                 var product = (Products)ProductsList.SelectedItem;
 
+                if (String.IsNullOrEmpty(path))
+                {
+                    path = product.Image;
+
+                    MessageDialog msg = new MessageDialog(product.Image);
+                    msg.ShowAsync();
+
+                }
                 Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id, path, decimal.Parse(Price.Text));
                 UpdateList();
 
