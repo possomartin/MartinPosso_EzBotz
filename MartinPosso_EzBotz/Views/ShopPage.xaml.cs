@@ -116,6 +116,7 @@ namespace MartinPosso_EzBotz.Views
                     }
 
                     Orders.AddData(con, persona.Id, (decimal)price, client.Id, producto.Id, producto.Price);
+                    this.Frame.Navigate(typeof(MainPage));
                 }
             }
             else
