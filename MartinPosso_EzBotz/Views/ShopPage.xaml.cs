@@ -116,6 +116,8 @@ namespace MartinPosso_EzBotz.Views
                     }
 
                     Orders.AddData(con, persona.Id, (decimal)price, client.Id, producto.Id, producto.Price);
+                    MessageDialog msg = new MessageDialog("Se ha realizado la compra Exitosamente.", "Compra Exitosa!");
+                    await msg.ShowAsync();
                     this.Frame.Navigate(typeof(MainPage));
                 }
             }
