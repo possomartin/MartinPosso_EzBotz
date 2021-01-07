@@ -40,7 +40,7 @@
                         Foreground="#757575"/>
                     <TextBox
                         x:Name="card" HorizontalAlignment="Left" Margin="133,276,0,0" Text=""
-                        TextWrapping="Wrap" VerticalAlignment="Top" Width="194" TabIndex="2147483625"
+                        TextWrapping="Wrap" VerticalAlignment="Top" Width="194" TabIndex="1"
                         MaxLength="16" BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" />
                     <TextBlock
                         HorizontalAlignment="Left" Margin="135,349,0,0"
@@ -48,7 +48,7 @@
                         Foreground="#757575"/>
                     <ComboBox
                         x:Name="Month" RenderTransformOrigin="1.156,7.875"
-                        Margin="135,393,0,0" Width="146" CornerRadius="20">
+                        Margin="135,393,0,0" Width="146" CornerRadius="20" TabIndex="2">
                         <ComboBoxItem>Enero</ComboBoxItem>
                         <ComboBoxItem>Febrero</ComboBoxItem>
                         <ComboBoxItem>Marzo</ComboBoxItem>
@@ -64,7 +64,7 @@
                     </ComboBox>
                     <ComboBox
                         x:Name="Year" Margin="325,393,0,0" Width="120"
-                        CornerRadius="20">
+                        CornerRadius="20" TabIndex="3">
                         <ComboBoxItem>2021</ComboBoxItem>
                         <ComboBoxItem>2022</ComboBoxItem>
                         <ComboBoxItem>2023</ComboBoxItem>
@@ -87,15 +87,15 @@
                     <TextBox
                         x:Name="codigo" HorizontalAlignment="Left" Margin="210,567,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
-                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="189"/>
+                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="189" TabIndex="6"/>
                     <TextBox
                         x:Name="address" HorizontalAlignment="Left" Margin="212,629,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top"
-                        CornerRadius="20" Width="189" Height="88"/>
+                        CornerRadius="20" Width="189" Height="88" TabIndex="7"/>
                     <TextBox
                         x:Name="phone" HorizontalAlignment="Left" Margin="210,744,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top"
-                        CornerRadius="20" Width="189"/>
+                        CornerRadius="20" Width="189" TabIndex="8"/>
                     <Button
                         x:Name="Cancel" Foreground="#FFF" Background="#F67B7B"
                         Width="167" Height="45" CornerRadius="20"
@@ -105,17 +105,17 @@
                         Text="Name" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <TextBox
-                        x:Name="Name" HorizontalAlignment="Left" Margin="146,488,0,0"
+                        x:Name="Name" HorizontalAlignment="Left" Margin="148,490,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
-                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="129"/>
+                        CornerRadius="20" Width="181" TabIndex="4"/>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="317,449,0,0"
+                        HorizontalAlignment="Left" Margin="376,449,0,0"
                         TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575" Width="71" Text="Last Name"/>
                     <TextBox
-                        x:Name="LastName" HorizontalAlignment="Left" Margin="327,487,0,0"
+                        x:Name="LastName" HorizontalAlignment="Left" Margin="384,489,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
-                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="114"/>
+                        CornerRadius="20" Width="174" TabIndex="5"/>
                 </Grid>
                 <Grid Grid.Column="1" BorderBrush="#454545" BorderThickness="2" Margin="13">
                     <ListView

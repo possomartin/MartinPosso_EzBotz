@@ -35,7 +35,7 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{x:Bind PersonID}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{x:Bind LastName}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind PersonName}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
@@ -110,7 +110,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Slider x:Name="quantity" HorizontalAlignment="Left" Margin="356,471,0,0" VerticalAlignment="Top" Width="173"/>
+        <Slider x:Name="quantity" HorizontalAlignment="Left" Margin="356,471,0,0" VerticalAlignment="Top" Width="173" ValueChanged="quantity_ValueChanged"/>
 
     </Grid>
 </Page>

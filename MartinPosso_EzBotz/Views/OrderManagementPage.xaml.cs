@@ -38,13 +38,13 @@ namespace MartinPosso_EzBotz.Views
             var product = (Product)comboProducts.SelectedItem;
             var Client = (Person)comboClient.SelectedItem;
 
-            //var Price = (float)Product.Price * 0.12 + (float)Product.Price;
-
-            Order.AddData(connection, product.ProductID, Client.PersonID, 21, (int)quantity.Value);
+            Order.AddData(connection, product.ProductID, Client.PersonID, double.Parse(Price.Text), (int)quantity.Value);
 
             int stock = product.Stock - (int)quantity.Value;
 
-            Product.UpdateData(connection, product.ProductName, product.Description, stock, product.ProductCode, product.SupplierID, product.CategoryID, product.Image, product.ProductID);
+            Product.UpdateData(connection, product.ProductName, product.Description, stock, product.ProductCode, product.SupplierID, product.CategoryID, product.Image, product.Price, product.ProductID);
+            comboProducts.ItemsSource = Product.GetProducts(connection);
+
             UpdateList();
             unselect();
         }
@@ -55,12 +55,15 @@ namespace MartinPosso_EzBotz.Views
             {
                 var Order = (Order)OrderList.SelectedItem;
 
-                var Product = (Product)comboProducts.SelectedItem;
+                var product = (Product)comboProducts.SelectedItem;
                 var Client = (Person)comboClient.SelectedItem;
 
-                //var Price = (float)Product.Price * 0.12 + (float)Product.Price;
 
-                Core.Models.Order.UpdateData(connection, Product.ProductID, Client.PersonID, 21, (int)quantity.Value, Order.OrderID);
+                int stock = product.Stock - (int)quantity.Value;
+
+                Core.Models.Order.UpdateData(connection, product.ProductID, Client.PersonID, double.Parse(Price.Text), (int)quantity.Value, Order.OrderID);
+
+                Product.UpdateData(connection, product.ProductName, product.Description, stock, product.ProductCode, product.SupplierID, product.CategoryID, product.Image, product.Price, product.ProductID);
 
                 UpdateList();
             }
@@ -86,7 +89,17 @@ namespace MartinPosso_EzBotz.Views
                 var Order = (Order)OrderList.SelectedItem;
                 Id.Text = "" + Order.OrderID;
                 Price.Text = "" + Order.Price;
-                quantity.Value = Order.Quantity;
+
+                Product p = null;
+
+                foreach(var product in Product.GetProducts(connection))
+                {
+                    if (product.ProductID == Order.ProductID)
+                        p = product;
+                }
+
+                if(p != null)
+                    quantity.Maximum = p.Stock;
             }
 
         }
@@ -122,6 +135,20 @@ namespace MartinPosso_EzBotz.Views
             if (product != null)
             {
                 quantity.Maximum = product.Stock;
+                Price.Text = "" + product.Price;
+            }
+        }
+
+        private void quantity_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            var product = (Product)comboProducts.SelectedItem;
+
+            if (product != null)
+            {
+                var total = product.Price * (int)quantity.Value;
+                var price = total * 0.12 + total;
+
+                Price.Text = "" + price;
             }
         }
     }

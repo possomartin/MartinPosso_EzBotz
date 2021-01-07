@@ -66,7 +66,7 @@ namespace MartinPosso_EzBotz.Views
 
                     int productCode = random.Next(1, 1000);
 
-                    Product.AddData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), productCode, supplier.SupplierID, category.CategoryID, path);
+                    Product.AddData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), productCode, supplier.SupplierID, category.CategoryID, path, double.Parse(Price.Text));
                     UpdateList();
 
                     EmptyBoxes();
@@ -106,6 +106,7 @@ namespace MartinPosso_EzBotz.Views
                 Stock.Text = "" + product.Stock;
                 Description.Text = "" + product.Description;
                 ProductCode.Text = "" + product.ProductCode;
+                Price.Text = "" + product.Price;
                 getImage(product.Image);
             }
           
@@ -129,7 +130,7 @@ namespace MartinPosso_EzBotz.Views
                     await msg.ShowAsync();
 
                 }
-                Product.UpdateData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), Int32.Parse(ProductCode.Text), supplier.SupplierID, category.CategoryID, path, product.ProductID);
+                Product.UpdateData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), Int32.Parse(ProductCode.Text), supplier.SupplierID, category.CategoryID, path, double.Parse(Price.Text) , product.ProductID);
                 UpdateList();
 
                 EmptyBoxes();
@@ -219,6 +220,7 @@ namespace MartinPosso_EzBotz.Views
             Stock.Text = "";
             Description.Text = "";
             ProductCode.Text = "";
+            Price.Text = "";
             productImage.Source = null;
             comboList.SelectedItem = null;
             SuppliersCombo.SelectedItem = null;

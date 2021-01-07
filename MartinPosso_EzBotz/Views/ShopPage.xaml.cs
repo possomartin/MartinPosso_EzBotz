@@ -97,19 +97,18 @@ namespace MartinPosso_EzBotz.Views
             {
                 if (User.Exists(con, client.Email, client.Password))
                 {
-                    var people = new Person();
-
+                    
                     Person.AddData(con, Name.Text, LastName.Text, address.Text, phone.Text, client.UserID);
 
                     var persona = new Person();
 
                     foreach (Person person in Person.GetPeople(con))
                     {
-                        if (person.PersonName.Equals(people.PersonName))
+                        if (person.PersonName.Equals(Name.Text))
                             persona = person;
                     }
 
-                    Order.AddData(con, producto.ProductID, persona.PersonID, 2, 3);
+                    Order.AddData(con, producto.ProductID, persona.PersonID, producto.Price, 1);
                     MessageDialog msg = new MessageDialog("Se ha realizado la compra Exitosamente.", "Compra Exitosa!");
                     await msg.ShowAsync();
                     this.Frame.Navigate(typeof(MainPage));
@@ -125,9 +124,9 @@ namespace MartinPosso_EzBotz.Views
 
         private void setPrice(Product p)
         {
-            //cost.Text = "" + p.Price;
-            //price = (double)p.Price * 0.12 + (double)p.Price;
-            //TotalCost.Text = "" + price;
+            cost.Text = "" + p.Price;
+            price = (double)p.Price * 0.12 + (double)p.Price;
+            TotalCost.Text = "" + price;
         }
 
         private void Cancel_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

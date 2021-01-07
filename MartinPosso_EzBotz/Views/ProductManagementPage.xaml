@@ -11,19 +11,19 @@
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <TextBox
-                x:Name="Stock" HorizontalAlignment="Left" Margin="336,225,0,0" Text=""
+                x:Name="Stock" HorizontalAlignment="Left" Margin="336,194,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="2"/>
             <TextBox
-                x:Name="Id" HorizontalAlignment="Left" Margin="336,62,0,0" Text=""
+                x:Name="Id" HorizontalAlignment="Left" Margin="336,31,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
             <TextBox
-                x:Name="Name" HorizontalAlignment="Left" Margin="336,305,0,0" Text=""
+                x:Name="Name" HorizontalAlignment="Left" Margin="336,274,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="3"/>
             <TextBox
-                x:Name="Description" HorizontalAlignment="Left" Margin="336,373,0,0" Text=""
+                x:Name="Description" HorizontalAlignment="Left" Margin="336,342,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120" TabIndex="4"/>
             <ComboBox
-                x:Name="comboList" Margin="330,141,0,0" Width="179" CornerRadius="20" TabIndex="1">
+                x:Name="comboList" Margin="330,110,0,0" Width="179" CornerRadius="20" TabIndex="1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="local:Category">
                         <Grid>
@@ -39,23 +39,23 @@
             </ComboBox>
 
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,147,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,116,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Categories"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,225,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,194,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Stock"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,305,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,274,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,373,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,342,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
             <Button
                 x:Name="insertar" Content="Insertar" Margin="205,876,0,0" VerticalAlignment="Top"
                 Click="AddProduct" CornerRadius="15"
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
 
-            <ComboBox x:Name="SuppliersCombo" Margin="330,522,0,0" Width="179" CornerRadius="20" TabIndex="5" >
+            <ComboBox x:Name="SuppliersCombo" Margin="330,491,0,0" Width="179" CornerRadius="20" TabIndex="5" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="local:Supplier">
                         <Grid>
@@ -70,20 +70,20 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,522,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,491,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Suppliers"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="231,583,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="231,552,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="ProductCode"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,62,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="238,31,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
             <TextBlock
                 HorizontalAlignment="Left" Margin="238,692,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Image"/><LineBreak/><Run/></TextBlock>
             <Image
                 x:Name="productImage"
-                HorizontalAlignment="Left" Height="174" Margin="336,652,0,0"
+                HorizontalAlignment="Left" Height="174" Margin="336,668,0,0"
                 VerticalAlignment="Top" Width="177" Stretch="Uniform"/>
             <Button
                 x:Name="Editar"
@@ -97,7 +97,7 @@
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
             <ListView
                 x:Name="ProductsList" HorizontalAlignment="Left" Height="862"
-                Margin="632,46,0,0" VerticalAlignment="Top" Width="780"
+                Margin="594,46,0,0" VerticalAlignment="Top" Width="818"
                 SelectionMode="Single" SelectionChanged="SelectedItem"
                 DoubleTapped="Deselect"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -112,11 +112,12 @@
                         <StackPanel Orientation="Horizontal" BorderBrush="#454545" BorderThickness="0.4">
                             <TextBlock Text="ID" Margin="8,0" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="Name" Width="100" TextAlignment="Center"/>
-                            <TextBlock Text="Categories" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Categories" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="Stock" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="Description" Width="200" TextAlignment="Center"/>
-                            <TextBlock Text="Suppliers" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Suppliers" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="ProductCode" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="Price" Width="100" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -125,11 +126,12 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{x:Bind ProductID}" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind ProductName}" Width="100" TextAlignment="Center"/>
-                            <TextBlock Text="{x:Bind CategoryID}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind CategoryID}" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind Stock}" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind Description}" Width="200" TextAlignment="Center"/>
-                            <TextBlock Text="{x:Bind SupplierID}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind SupplierID}" Width="50" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind ProductCode}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind Price}" Width="100" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -139,9 +141,14 @@
                 CornerRadius="20" Width="88" FontSize="15" Background="#3CB19E" Foreground="#fff" Height="31"
                 Click="AddImage"/>
             <TextBox
-                x:Name="ProductCode" HorizontalAlignment="Left" Margin="336,583,0,0" Text=""
+                x:Name="ProductCode" HorizontalAlignment="Left" Margin="336,552,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="6"/>
-
+            <TextBox
+                x:Name="Price" HorizontalAlignment="Left" Margin="336,602,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="6"/>
+            <TextBlock
+                HorizontalAlignment="Left" Margin="231,602,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="Price"/><LineBreak/><Run/></TextBlock>
 
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
