@@ -32,23 +32,23 @@ namespace MartinPosso_EzBotz.Views
 
         private void updateList()
         {
-            SupplierList.ItemsSource = Suppliers.GetSuppliers(connection);
+            SupplierList.ItemsSource = Supplier.GetSuppliers(connection);
         }
 
         private void AddOrder(object sender, RoutedEventArgs e)
         {
-            Suppliers.AddData(connection, Name.Text, Address.Text);
+            Supplier.AddData(connection, Name.Text, Address.Text, Email.Text);
             updateList();
             Empty();
         }
 
         private void UpdateClick(object sender, RoutedEventArgs e)
         {
-            var supplier = (Suppliers)SupplierList.SelectedItem;
+            var supplier = (Supplier)SupplierList.SelectedItem;
 
             if(supplier != null)
             {
-                Suppliers.UpdateData(connection, Name.Text, Address.Text, supplier.Id);
+                Supplier.UpdateData(connection, Name.Text, Address.Text, Email.Text, supplier.SupplierID);
                 updateList();
                 Empty();
             }
@@ -56,11 +56,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void EliminarClick(object sender, RoutedEventArgs e)
         {
-            var supplier = (Suppliers)SupplierList.SelectedItem;
+            var supplier = (Supplier)SupplierList.SelectedItem;
 
             if (supplier != null)
             {
-                Suppliers.Delete(connection, supplier.Id);
+                Supplier.Delete(connection, supplier.SupplierID);
                 updateList();
                 Empty();
             }
@@ -68,13 +68,14 @@ namespace MartinPosso_EzBotz.Views
 
         private void SelectedItem(object sender, SelectionChangedEventArgs e)
         {
-            var supplier = (Suppliers)SupplierList.SelectedItem;
+            var supplier = (Supplier)SupplierList.SelectedItem;
 
             if (supplier != null)
             {
-                Id.Text = "" + supplier.Id;
-                Name.Text = supplier.Name;
+                Id.Text = "" + supplier.SupplierID;
+                Name.Text = supplier.SupplierName;
                 Address.Text = supplier.Address;
+                Email.Text = supplier.Email;
             }
         }
         private void Deselect(object sender, DoubleTappedRoutedEventArgs e)
@@ -88,6 +89,7 @@ namespace MartinPosso_EzBotz.Views
             Id.Text = "";
             Name.Text = "";
             Address.Text = "";
+            Email.Text = "";
         }
     }
 }

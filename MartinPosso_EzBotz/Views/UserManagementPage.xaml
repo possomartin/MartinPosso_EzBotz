@@ -9,26 +9,20 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <TextBox
-                x:Name="Name" HorizontalAlignment="Left" Margin="353,265,0,0" Text=""
+                x:Name="Name" HorizontalAlignment="Left" Margin="353,323,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1"/>
-        <TextBox
-                x:Name="LastName" HorizontalAlignment="Left" Margin="353,325,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="2"/>
         <TextBox
                 x:Name="Email" HorizontalAlignment="Left" Margin="353,396,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="3"/>
         <TextBox
-                x:Name="Id" HorizontalAlignment="Left" Margin="353,188,0,0" Text=""
+                x:Name="Id" HorizontalAlignment="Left" Margin="353,246,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
         <TextBox
                 x:Name="Password" HorizontalAlignment="Left" Margin="353,481,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="4"/>
         <TextBlock
-                HorizontalAlignment="Left" Margin="255,265,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="255,323,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
-        <TextBlock
-                HorizontalAlignment="Left" Margin="255,338,0,0" TextWrapping="Wrap"
-                VerticalAlignment="Top"><Run Text="LastName"/><LineBreak/><Run/></TextBlock>
         <TextBlock
                 HorizontalAlignment="Left" Margin="255,409,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Email"/><LineBreak/><Run/></TextBlock>
@@ -40,7 +34,7 @@
                 Click="AddOrder" CornerRadius="15"
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
         <TextBlock
-                HorizontalAlignment="Left" Margin="255,188,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="255,246,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
         <Button
                 x:Name="Editar"
@@ -69,18 +63,16 @@
                     <StackPanel Orientation="Horizontal" BorderBrush="#454545" BorderThickness="0.4">
                         <TextBlock Text="ID" Margin="8,0" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="Name" Width="150" TextAlignment="Center"/>
-                        <TextBlock Text="LastName" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="Email" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="Password" Width="100" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Users">
+                <DataTemplate x:DataType="local:User">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Id}" Width="100" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Name}" Width="150" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind LastName}" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind UserID}" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind UserName}" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind Email}" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind Password}" Width="100" TextAlignment="Center"/>
                     </StackPanel>

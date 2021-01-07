@@ -32,13 +32,13 @@ namespace MartinPosso_EzBotz.Views
 
         private void SelectedItem(object sender, SelectionChangedEventArgs e)
         {
-            var category = (Categories)CategoryList.SelectedItem;
+            var category = (Category)CategoryList.SelectedItem;
 
             if(category != null)
             {
-                Id.Text = "" + category.Id;
-                Name.Text = category.Name;
-                Description.Text = category.Description;
+                Id.Text = "" + category.CategoryID;
+                Name.Text = category.CategoryName;
+                Description.Text = category.description;
             }
         }
 
@@ -50,7 +50,7 @@ namespace MartinPosso_EzBotz.Views
 
         private void AddCategory(object sender, RoutedEventArgs e)
         {
-            Categories.AddData(connection, Name.Text, Description.Text);
+            Category.AddData(connection, Name.Text, Description.Text);
 
             updateList();
             Empty();
@@ -59,11 +59,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void UpdateClick(object sender, RoutedEventArgs e)
         {
-            var category = (Categories)CategoryList.SelectedItem;
+            var category = (Category)CategoryList.SelectedItem;
 
             if (category != null)
             {
-                Categories.UpdateData(connection, Name.Text, Description.Text, category.Id);
+                Category.UpdateData(connection, Name.Text, Description.Text, category.CategoryID);
                 updateList();
                 Empty();
             }
@@ -71,11 +71,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void EliminarClick(object sender, RoutedEventArgs e)
         {
-            var category = (Categories)CategoryList.SelectedItem;
+            var category = (Category)CategoryList.SelectedItem;
 
             if (category != null)
             {
-                Categories.Delete(connection, category.Id);
+                Category.Delete(connection, category.CategoryID);
 
                 updateList();
                 Empty();
@@ -84,7 +84,7 @@ namespace MartinPosso_EzBotz.Views
 
         private void updateList()
         {
-            CategoryList.ItemsSource = Categories.GetCategories(connection);
+            CategoryList.ItemsSource = Category.GetCategories(connection);
         }
 
         private void Empty()

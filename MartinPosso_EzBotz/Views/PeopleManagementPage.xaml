@@ -11,10 +11,10 @@
     <Grid>
         <TextBox
                 x:Name="Name" HorizontalAlignment="Left" Margin="353,265,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1" IsReadOnly="True"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1"/>
         <TextBox
                 x:Name="LastName" HorizontalAlignment="Left" Margin="353,325,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="2" IsReadOnly="True"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="2"/>
         <TextBox
                 x:Name="Email" HorizontalAlignment="Left" Margin="347,523,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="4" IsReadOnly="True"/>
@@ -56,14 +56,14 @@
         <ComboBox
                 x:Name="comboUser" Margin="347,657,0,0" Width="179" CornerRadius="20" SelectionChanged="comboUserSelection" TabIndex="6">
             <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="local:Users">
+                <DataTemplate x:DataType="local:User">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Text="{x:Bind UserID}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind UserName}" FontSize="10" TextAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
@@ -97,21 +97,19 @@
                         <TextBlock Text="Name" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="LastName" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="Address" Width="150" TextAlignment="Center"/>
-                        <TextBlock Text="Email" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="Telefono" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="UserID" Width="50" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:People">
+                <DataTemplate x:DataType="local:Person">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Id}" Width="50" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Name}" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind PersonID}" Width="50" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind PersonName}" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind LastName}" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind Address}" Width="150" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Email}" Width="150" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Telefono}" Width="150" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind PhoneNumber}" Width="150" TextAlignment="Center"/>
                         <TextBlock Text="{x:Bind UserID}" Width="50" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>

@@ -13,9 +13,9 @@ namespace MartinPosso_EzBotz.Views
 {
     public sealed partial class ShopPage : Page, INotifyPropertyChanged
     {
-        public ObservableCollection<Products> colection = new ObservableCollection<Products>();
-        public Products producto { get; set; }
-        public Users client { get; set; }
+        public ObservableCollection<Product> colection = new ObservableCollection<Product>();
+        public Product producto { get; set; }
+        public User client { get; set; }
 
         public double price { get; set; }
         public ShopPage()
@@ -46,7 +46,7 @@ namespace MartinPosso_EzBotz.Views
                 var parameters = (MainPage)e.Parameter;
                 if (parameters != null)
                 {
-                    anadirCarrito(parameters.producto.Id);
+                    anadirCarrito(parameters.producto.ProductID);
                     client = parameters.Users;
                 }
 
@@ -55,10 +55,10 @@ namespace MartinPosso_EzBotz.Views
         }
         public void anadirCarrito(int Id)
         {
-            var listaProductos = Products.GetProducts((App.Current as App).ConnectionString);
-            foreach (Products product in listaProductos)
+            var listaProductos = Product.GetProducts((App.Current as App).ConnectionString);
+            foreach (Product product in listaProductos)
             {
-                if (Id == product.Id)
+                if (Id == product.ProductID)
                 {
                     producto = product;
                     setPrice(product);
@@ -95,27 +95,21 @@ namespace MartinPosso_EzBotz.Views
 
             if (client != null)
             {
-                if (Users.Exists(con, client.Email, client.Password))
+                if (User.Exists(con, client.Email, client.Password))
                 {
-                    var people = new People();
-                    people.Name = client.Name;
-                    people.LastName = client.LastName;
-                    people.Address = address.Text;
-                    people.Email = client.Email;
-                    people.Telefono = phone.Text;
-                    people.UserID = client.Id;
+                    var people = new Person();
 
-                    People.AddData(con, people.Name, people.LastName, people.Address, people.Email, people.Telefono, people.UserID);
+                    Person.AddData(con, Name.Text, LastName.Text, address.Text, phone.Text, client.UserID);
 
-                    var persona = new People();
+                    var persona = new Person();
 
-                    foreach (People person in People.GetPeople(con))
+                    foreach (Person person in Person.GetPeople(con))
                     {
-                        if (person.Name.Equals(people.Name))
+                        if (person.PersonName.Equals(people.PersonName))
                             persona = person;
                     }
 
-                    Orders.AddData(con, persona.Id, (decimal)price, client.Id, producto.Id, producto.Price);
+                    Order.AddData(con, producto.ProductID, persona.PersonID, 2, 3);
                     MessageDialog msg = new MessageDialog("Se ha realizado la compra Exitosamente.", "Compra Exitosa!");
                     await msg.ShowAsync();
                     this.Frame.Navigate(typeof(MainPage));
@@ -129,17 +123,18 @@ namespace MartinPosso_EzBotz.Views
             }
         }
 
-        private void setPrice(Products p)
+        private void setPrice(Product p)
         {
-            cost.Text = "" + p.Price;
-            price = (double)p.Price * 0.12 + (double)p.Price;
-            TotalCost.Text = "" + price;
+            //cost.Text = "" + p.Price;
+            //price = (double)p.Price * 0.12 + (double)p.Price;
+            //TotalCost.Text = "" + price;
         }
 
         private void Cancel_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
+
     }
 
 }

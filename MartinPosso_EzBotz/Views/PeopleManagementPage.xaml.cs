@@ -27,17 +27,17 @@ namespace MartinPosso_EzBotz.Views
         public PeopleManagementPage()
         {
             this.InitializeComponent();
-            comboUser.ItemsSource = Users.GetUsers(connection);
+            comboUser.ItemsSource = User.GetUsers(connection);
             updateList();
         }
 
         private void AddPeople(object sender, RoutedEventArgs e)
         {
-            var user = (Users)comboUser.SelectedItem;
+            var user = (User)comboUser.SelectedItem;
 
             if (user != null)
             {
-                People.AddData(connection, user.Name, user.LastName, Address.Text, user.Email, Telefono.Text, user.Id);
+                Person.AddData(connection, Name.Text, LastName.Text, Address.Text, Telefono.Text, user.UserID);
                 updateList();
                 empty();
             }
@@ -45,12 +45,12 @@ namespace MartinPosso_EzBotz.Views
 
         private void UpdateClick(object sender, RoutedEventArgs e)
         {
-            var person = (People)PeopleList.SelectedItem;
-            var user = (Users)comboUser.SelectedItem;
+            var person = (Person)PeopleList.SelectedItem;
+            var user = (User)comboUser.SelectedItem;
 
             if (person != null && user != null)
             {
-                People.UpdateData(connection, Name.Text, LastName.Text, Address.Text, Email.Text, Telefono.Text, user.Id, person.Id);
+                Person.UpdateData(connection, Name.Text, LastName.Text, Address.Text, Telefono.Text, user.UserID, person.PersonID);
                 updateList();
                 empty();
             }
@@ -58,11 +58,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void EliminarClick(object sender, RoutedEventArgs e)
         {
-            var person = (People)PeopleList.SelectedItem;
+            var person = (Person)PeopleList.SelectedItem;
 
             if (person != null)
             {
-                People.Delete(connection, person.Id);
+                Person.Delete(connection, person.PersonID);
                 updateList();
                 empty();
             }
@@ -70,20 +70,17 @@ namespace MartinPosso_EzBotz.Views
 
         private void SelectedItem(object sender, SelectionChangedEventArgs e)
         {
-            var person = (People)PeopleList.SelectedItem;
+            var person = (Person)PeopleList.SelectedItem;
 
             if(person != null)
             {
-                Id.Text = "" + person.Id;
-                Name.Text = person.Name;
+                Id.Text = "" + person.PersonID;
+                Name.Text = person.PersonName;
                 LastName.Text = person.LastName;
                 Address.Text = person.Address;
-                Email.Text = person.Email;
-                Telefono.Text = person.Telefono;
+                Telefono.Text = person.PhoneNumber;
 
                 Email.IsReadOnly = false;
-                Name.IsReadOnly = false;
-                LastName.IsReadOnly = false;
             }
         }
         private void Deselect(object sender, DoubleTappedRoutedEventArgs e)
@@ -94,7 +91,7 @@ namespace MartinPosso_EzBotz.Views
 
         private void updateList()
         {
-            PeopleList.ItemsSource = People.GetPeople(connection);
+            PeopleList.ItemsSource = Person.GetPeople(connection);
         }
 
         private void empty()
@@ -108,18 +105,14 @@ namespace MartinPosso_EzBotz.Views
             comboUser.SelectedItem = null;
 
             Email.IsReadOnly = true;
-            Name.IsReadOnly = true;
-            LastName.IsReadOnly = true;
         }
 
         private void comboUserSelection(object sender, SelectionChangedEventArgs e)
         {
-            var user = (Users)comboUser.SelectedItem;
+            var user = (User)comboUser.SelectedItem;
 
             if(user != null)
             {
-                Name.Text = user.Name;
-                LastName.Text = user.LastName;
                 Email.Text = user.Email;
             }
         }

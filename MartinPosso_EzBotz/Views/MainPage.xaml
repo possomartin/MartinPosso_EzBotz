@@ -22,10 +22,10 @@
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="12" Width="1450" Height="400">
                 <GridView x:Name="ProductGallery">
                     <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="local:Products">
+                        <DataTemplate x:DataType="local:Product">
                             <StackPanel Margin="12">
                                 <Image Source="{x:Bind Image}" Height="256" Width="256" Stretch="Uniform"/>
-                                <TextBlock Text="{x:Bind Name}" HorizontalTextAlignment="Center" Margin="12" Foreground="#757575"/>
+                                <TextBlock Text="{x:Bind ProductName}" HorizontalTextAlignment="Center" Margin="12" Foreground="#757575"/>
                                 <Button Background="#e3e3e3" HorizontalAlignment="Center" CornerRadius="15" Click="addcart">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="/Assets/Icon awesome-cart-arrow-down.png" Height="20" Width="20"/>

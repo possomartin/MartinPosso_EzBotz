@@ -8,17 +8,16 @@ using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
 {
-    public class Users
+    public class User
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public int UserID { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public static void AddData(string connectionString, string name, string lastname, string email, string password)
+        public static void AddData(string connectionString, string name, string email, string password)
         {
-            string add = "INSERT INTO Users (Name,LastName,Email,Password) VALUES ('" + name + "','" + lastname + "','" + email + "','" + password + "')";
+            string add = "INSERT INTO Users (UserName,Email,Password) VALUES ('" + name + "','" + email + "','" + password + "')";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -38,11 +37,11 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static ObservableCollection<Users> GetUsers(string connectionString)
+        public static ObservableCollection<User> GetUsers(string connectionString)
         {
-            string get = "select Id, Name, LastName, Email, Password from Users where Name is not null";
+            string get = "select UserID, UserName, Email, Password from Users where UserName is not null";
 
-            var users = new ObservableCollection<Users>();
+            var users = new ObservableCollection<User>();
 
             try
             {
@@ -60,12 +59,11 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while(reader.Read())
                                 {
-                                    var user = new Users();
-                                    user.Id = reader.GetInt32(0);
-                                    user.Name = reader.GetString(1);
-                                    user.LastName = reader.GetString(2);
-                                    user.Email = reader.GetString(3);
-                                    user.Password = reader.GetString(4);
+                                    var user = new User();
+                                    user.UserID = reader.GetInt32(0);
+                                    user.UserName = reader.GetString(1);
+                                    user.Email = reader.GetString(2);
+                                    user.Password = reader.GetString(3);
                                     users.Add(user);
                                 }
                             }
@@ -108,7 +106,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void Delete(string connectionString, int id)
         {
-            string delete = "delete from Users where Id=" + id;
+            string delete = "delete from Users where UserID=" + id;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -125,9 +123,9 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static void UpdateData(String connectionString, string name, string lastname, string email, string password, int userID)
+        public static void UpdateData(String connectionString, string name, string email, string password, int userID)
         {
-            string update = "update Users set Name ='" + name + "', LastName ='" + lastname + "', Email = '" + email + "', Password ='" + password + "' where Id = " + userID;
+            string update = "update Users set UserName ='" + name + "', Email = '" + email + "', Password ='" + password + "' where UserID = " + userID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

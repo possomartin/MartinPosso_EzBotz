@@ -28,21 +28,23 @@ namespace MartinPosso_EzBotz.Views
         {
             this.InitializeComponent();
 
-            comboProducts.ItemsSource = Products.GetProducts(connection);
-            comboUsers.ItemsSource = Users.GetUsers(connection);
-            comboClient.ItemsSource = People.GetPeople(connection);
+            comboProducts.ItemsSource = Product.GetProducts(connection);
+            comboClient.ItemsSource = Person.GetPeople(connection);
             UpdateList();
         }
 
         private void AddOrder(object sender, RoutedEventArgs e)
         {
-            var Product = (Products)comboProducts.SelectedItem;
-            var User = (Users)comboUsers.SelectedItem;
-            var Client = (People)comboClient.SelectedItem;
+            var product = (Product)comboProducts.SelectedItem;
+            var Client = (Person)comboClient.SelectedItem;
 
-            var Price = (float)Product.Price * 0.12 + (float)Product.Price;
+            //var Price = (float)Product.Price * 0.12 + (float)Product.Price;
 
-            Orders.AddData(connection, Client.Id, (decimal)Price, User.Id, Product.Id, Product.Price);
+            Order.AddData(connection, product.ProductID, Client.PersonID, 21, (int)quantity.Value);
+
+            int stock = product.Stock - (int)quantity.Value;
+
+            Product.UpdateData(connection, product.ProductName, product.Description, stock, product.ProductCode, product.SupplierID, product.CategoryID, product.Image, product.ProductID);
             UpdateList();
             unselect();
         }
@@ -51,15 +53,14 @@ namespace MartinPosso_EzBotz.Views
         {
             if(OrderList.SelectedItem != null)
             {
-                var Order = (Orders)OrderList.SelectedItem;
+                var Order = (Order)OrderList.SelectedItem;
 
-                var Product = (Products)comboProducts.SelectedItem;
-                var User = (Users)comboUsers.SelectedItem;
-                var Client = (People)comboClient.SelectedItem;
+                var Product = (Product)comboProducts.SelectedItem;
+                var Client = (Person)comboClient.SelectedItem;
 
-                var Price = (float)Product.Price * 0.12 + (float)Product.Price;
+                //var Price = (float)Product.Price * 0.12 + (float)Product.Price;
 
-                Orders.UpdateData(connection, Client.Id, (decimal)Price, User.Id, Product.Id, Product.Price, Order.Id);
+                Core.Models.Order.UpdateData(connection, Product.ProductID, Client.PersonID, 21, (int)quantity.Value, Order.OrderID);
 
                 UpdateList();
             }
@@ -69,8 +70,8 @@ namespace MartinPosso_EzBotz.Views
         {
             if (OrderList.SelectedItem != null)
             {
-                var Order = (Orders)OrderList.SelectedItem;
-                Orders.Delete(connection, Order.Id);
+                var Order = (Order)OrderList.SelectedItem;
+                Order.Delete(connection, Order.OrderID);
                 unselect();
 
                 UpdateList();
@@ -82,10 +83,10 @@ namespace MartinPosso_EzBotz.Views
         {
             if (OrderList.SelectedItem != null)
             {
-                var Order = (Orders)OrderList.SelectedItem;
-                Id.Text = "" + Order.Id;
+                var Order = (Order)OrderList.SelectedItem;
+                Id.Text = "" + Order.OrderID;
                 Price.Text = "" + Order.Price;
-                total.Text = "" + Order.Total;
+                quantity.Value = Order.Quantity;
             }
 
         }
@@ -94,17 +95,16 @@ namespace MartinPosso_EzBotz.Views
         {
             Id.Text = "";
             Price.Text = "";
-            total.Text = "";
+            quantity.Value = 0;
 
             comboClient.SelectedItem = null;
             comboProducts.SelectedItem = null;
-            comboUsers.SelectedItem = null;
-
+           
         }
 
         private void UpdateList()
         {
-            OrderList.ItemsSource = Orders.GetOrders(connection);
+            OrderList.ItemsSource = Order.GetOrders(connection);
         }
 
         private void Deselect(object sender, DoubleTappedRoutedEventArgs e)
@@ -117,14 +117,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void comboProductsSelection(object sender, SelectionChangedEventArgs e)
         {
-            var product = (Products)comboProducts.SelectedItem;
+            var product = (Product)comboProducts.SelectedItem;
 
             if (product != null)
             {
-                var TotalCost = (float)product.Price * 0.12 + (float)product.Price;
-
-                Price.Text = "" + product.Price;
-                total.Text = "" + TotalCost;
+                quantity.Maximum = product.Stock;
             }
         }
     }

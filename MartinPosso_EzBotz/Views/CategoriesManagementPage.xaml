@@ -64,11 +64,11 @@
                 </DataTemplate>
             </ListView.HeaderTemplate>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Categories">
+                <DataTemplate x:DataType="local:Category">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Id}" Width="250" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Name}" Width="200" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Description}" Width="300" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind CategoryID}" Width="250" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind CategoryName}" Width="200" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind description}" Width="300" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

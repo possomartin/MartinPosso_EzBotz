@@ -10,26 +10,26 @@
 
     <Grid>
         <TextBox
-                x:Name="Name" HorizontalAlignment="Left" Margin="349,349,0,0" Text=""
+                x:Name="Name" HorizontalAlignment="Left" Margin="340,154,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="1"/>
         <TextBox
-                x:Name="Address" HorizontalAlignment="Left" Margin="349,409,0,0" Text=""
+                x:Name="Address" HorizontalAlignment="Left" Margin="340,214,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="91" TabIndex="2"/>
         <TextBox
-                x:Name="Id" HorizontalAlignment="Left" Margin="349,272,0,0" Text=""
+                x:Name="Id" HorizontalAlignment="Left" Margin="340,77,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
         <TextBlock
-                HorizontalAlignment="Left" Margin="251,349,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="242,154,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
         <TextBlock
-                HorizontalAlignment="Left" Margin="251,422,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="242,227,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Address"/><LineBreak/><Run/></TextBlock>
         <Button
                 x:Name="insertar" Content="Insertar" Margin="192,528,0,0" VerticalAlignment="Top"
                 Click="AddOrder" CornerRadius="15"
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
         <TextBlock
-                HorizontalAlignment="Left" Margin="251,272,0,0" TextWrapping="Wrap"
+                HorizontalAlignment="Left" Margin="242,77,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
         <Button
                 x:Name="Editar"
@@ -56,22 +56,30 @@
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" BorderBrush="#454545" BorderThickness="0.4">
-                        <TextBlock Text="ID" Margin="8,0" Width="200" TextAlignment="Center"/>
-                        <TextBlock Text="Name" Width="250" TextAlignment="Center"/>
-                        <TextBlock Text="Address" Width="300" TextAlignment="Center"/>
+                        <TextBlock Text="ID" Margin="8,0" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="Name" Width="200" TextAlignment="Center"/>
+                        <TextBlock Text="Address" Width="250" TextAlignment="Center"/>
+                        <TextBlock Text="Email" Width="200" TextAlignment="Center"/>
 
                     </StackPanel>
                 </DataTemplate>
             </ListView.HeaderTemplate>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Suppliers">
+                <DataTemplate x:DataType="local:Supplier">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Id}" Width="250" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Name}" Width="200" TextAlignment="Center"/>
-                        <TextBlock Text="{x:Bind Address}" Width="300" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind SupplierID}" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind SupplierName}" Width="200" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Address}" Width="250" TextAlignment="Center"/>
+                        <TextBlock Text="{x:Bind Email}" Width="200" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <TextBox
+            x:Name="Email" HorizontalAlignment="Left" Margin="340,331,0,0" Text=""
+            TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="1" TabIndex="3"/>
+        <TextBlock
+            HorizontalAlignment="Left" Margin="242,331,0,0" TextWrapping="Wrap"
+            VerticalAlignment="Top" Text="Email"/>
     </Grid>
 </Page>

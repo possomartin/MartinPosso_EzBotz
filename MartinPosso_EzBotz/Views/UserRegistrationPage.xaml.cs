@@ -31,10 +31,11 @@ namespace MartinPosso_EzBotz.Views
 
         private async void SignUpBtn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Users.AddData((App.Current as App).ConnectionString, NameTextbox.Text, LastNameTextbox.Text, EmailTextbox.Text, PasswordTextbox.Password.ToString());
+            User.AddData((App.Current as App).ConnectionString, NameTextbox.Text, EmailTextbox.Text, PasswordTextbox.Password.ToString());
             MessageDialog msg = new MessageDialog("Se ha registrado existosamente", "Registro exitoso!");
             await msg.ShowAsync();
             this.Frame.Navigate(typeof(UserLoginPage));
         }
+
     }
 }

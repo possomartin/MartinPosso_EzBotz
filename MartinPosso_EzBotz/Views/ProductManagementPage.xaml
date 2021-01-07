@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="using:MartinPosso_EzBotz.Core.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:MartinPosso_EzBotz.Core.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
@@ -11,27 +12,27 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <TextBox
                 x:Name="Stock" HorizontalAlignment="Left" Margin="336,225,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="1"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="2"/>
             <TextBox
                 x:Name="Id" HorizontalAlignment="Left" Margin="336,62,0,0" Text=""
                 TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" IsReadOnly="True"/>
             <TextBox
                 x:Name="Name" HorizontalAlignment="Left" Margin="336,305,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="2"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="3"/>
             <TextBox
                 x:Name="Description" HorizontalAlignment="Left" Margin="336,373,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120" TabIndex="3"/>
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" Height="120" TabIndex="4"/>
             <ComboBox
-                x:Name="comboList" Margin="330,141,0,0" Width="179" CornerRadius="20">
+                x:Name="comboList" Margin="330,141,0,0" Width="179" CornerRadius="20" TabIndex="1">
                 <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="local:Categories">
+                    <DataTemplate x:DataType="local:Category">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20" TextAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10" TextAlignment="Center"/>
+                            <TextBlock Grid.Column="0" Text="{x:Bind CategoryID}" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{x:Bind CategoryName}" FontSize="10" TextAlignment="Center"/>
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -54,16 +55,16 @@
                 Click="AddProduct" CornerRadius="15"
                 Background="#3CB19E" Foreground="#fff" Width="90"/>
 
-            <ComboBox x:Name="SuppliersCombo" Margin="330,522,0,0" Width="179" CornerRadius="20" >
+            <ComboBox x:Name="SuppliersCombo" Margin="330,522,0,0" Width="179" CornerRadius="20" TabIndex="5" >
                 <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="local:Suppliers">
+                    <DataTemplate x:DataType="local:Supplier">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{x:Bind Id}" FontSize="20"/>
-                            <TextBlock Grid.Column="1" Text="{x:Bind Name}" FontSize="10"/>
+                            <TextBlock Grid.Column="0" Text="{x:Bind SupplierID}" FontSize="20"/>
+                            <TextBlock Grid.Column="1" Text="{x:Bind SupplierName}" FontSize="10"/>
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -72,8 +73,8 @@
                 HorizontalAlignment="Left" Margin="238,522,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="Suppliers"/><LineBreak/><Run/></TextBlock>
             <TextBlock
-                HorizontalAlignment="Left" Margin="238,583,0,0" TextWrapping="Wrap"
-                VerticalAlignment="Top"><Run Text="Price"/><LineBreak/><Run/></TextBlock>
+                HorizontalAlignment="Left" Margin="231,583,0,0" TextWrapping="Wrap"
+                VerticalAlignment="Top"><Run Text="ProductCode"/><LineBreak/><Run/></TextBlock>
             <TextBlock
                 HorizontalAlignment="Left" Margin="238,62,0,0" TextWrapping="Wrap"
                 VerticalAlignment="Top"><Run Text="ID"/><LineBreak/><Run/></TextBlock>
@@ -115,20 +116,20 @@
                             <TextBlock Text="Stock" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="Description" Width="200" TextAlignment="Center"/>
                             <TextBlock Text="Suppliers" Width="100" TextAlignment="Center"/>
-                            <TextBlock Text="Price" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="ProductCode" Width="100" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Products">
+                    <DataTemplate x:DataType="local:Product">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{x:Bind Id}" Width="50" TextAlignment="Center"/>
-                            <TextBlock Text="{x:Bind Name}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ProductID}" Width="50" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ProductName}" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind CategoryID}" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind Stock}" Width="100" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind Description}" Width="200" TextAlignment="Center"/>
                             <TextBlock Text="{x:Bind SupplierID}" Width="100" TextAlignment="Center"/>
-                            <TextBlock Text="{x:Bind Price}" Width="100" TextAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ProductCode}" Width="100" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -138,8 +139,8 @@
                 CornerRadius="20" Width="88" FontSize="15" Background="#3CB19E" Foreground="#fff" Height="31"
                 Click="AddImage"/>
             <TextBox
-                x:Name="Price" HorizontalAlignment="Left" Margin="336,583,0,0" Text=""
-                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="2"/>
+                x:Name="ProductCode" HorizontalAlignment="Left" Margin="336,583,0,0" Text=""
+                TextWrapping="Wrap" VerticalAlignment="Top" Width="167" CornerRadius="20" TabIndex="6"/>
 
 
             <!--

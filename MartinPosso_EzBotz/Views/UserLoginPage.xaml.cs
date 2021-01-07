@@ -11,7 +11,8 @@ namespace MartinPosso_EzBotz.Views
 {
     public sealed partial class UserLoginPage : Page, INotifyPropertyChanged
     {
-        public Users userLogin { get; set; }
+        private string con = (App.Current as App).ConnectionString;
+        private User userLogin { get; set; }
         public UserLoginPage()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace MartinPosso_EzBotz.Views
         private async void SignInBtn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
 
-            if (Users.Exists((App.Current as App).ConnectionString, EmailTextbox.Text, PasswordTextbox.Password.ToString()))
+            if (UserExist(EmailTextbox.Text, PasswordTextbox.Password.ToString()))
             {
                 this.Frame.Navigate(typeof(MainPage), EmailTextbox.Text);
             }
@@ -51,6 +52,22 @@ namespace MartinPosso_EzBotz.Views
         private void HyperlinkButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(UserRegistrationPage));
+        }
+
+
+        private Boolean UserExist(string email, string password)
+        {
+            var Users = User.GetUsers(con);
+
+            bool exists = false;
+
+            foreach(User user in Users)
+            {
+                if (user.Email.Equals(email) && user.Password.Equals(password))
+                    exists = true;
+            }
+
+            return exists;
         }
     }
 }

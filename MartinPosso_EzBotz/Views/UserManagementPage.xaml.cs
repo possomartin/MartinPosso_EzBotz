@@ -32,17 +32,17 @@ namespace MartinPosso_EzBotz.Views
 
         private void AddOrder(object sender, RoutedEventArgs e)
         {
-            Users.AddData(connection, Name.Text, LastName.Text, Email.Text, Password.Text);
+            User.AddData(connection, Name.Text, Email.Text, Password.Text);
             updateList();
         }
 
         private void UpdateClick(object sender, RoutedEventArgs e)
         {
-            var user = (Users)UserList.SelectedItem;
+            var user = (User)UserList.SelectedItem;
 
             if (user != null)
             {
-                Users.UpdateData(connection, Name.Text, LastName.Text, Email.Text, Password.Text, user.Id);
+                User.UpdateData(connection, Name.Text, Email.Text, Password.Text, user.UserID);
                 updateList();
                 Empty();
             }
@@ -50,11 +50,11 @@ namespace MartinPosso_EzBotz.Views
 
         private void EliminarClick(object sender, RoutedEventArgs e)
         {
-            var user = (Users)UserList.SelectedItem;
+            var user = (User)UserList.SelectedItem;
 
             if(user != null)
             {
-                Users.Delete(connection, user.Id);
+                User.Delete(connection, user.UserID);
                 updateList();
                 Empty();
             }
@@ -62,13 +62,12 @@ namespace MartinPosso_EzBotz.Views
 
         private void SelectedItem(object sender, SelectionChangedEventArgs e)
         {
-            var user = (Users)UserList.SelectedItem;
+            var user = (User)UserList.SelectedItem;
 
             if(user != null)
             {
-                Id.Text = "" + user.Id;
-                Name.Text = user.Name;
-                LastName.Text = user.LastName;
+                Id.Text = "" + user.UserID;
+                Name.Text = user.UserName;
                 Email.Text = user.Email;
                 Password.Text = user.Password;
             }
@@ -83,14 +82,13 @@ namespace MartinPosso_EzBotz.Views
 
         private void updateList()
         {
-            UserList.ItemsSource = Users.GetUsers(connection);
+            UserList.ItemsSource = User.GetUsers(connection);
         }
 
         private void Empty()
         {
             Id.Text = "";
             Name.Text = "";
-            LastName.Text = "";
             Email.Text = "";
             Password.Text = "";
         }

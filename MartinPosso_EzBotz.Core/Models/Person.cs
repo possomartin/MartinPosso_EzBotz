@@ -7,23 +7,23 @@ using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
 {
-    public class People
+    public class Person
     {
-        public int Id { get; set; }
-        public int UserID { get; set; }
-        public string Name { get; set; }
+        public int PersonID { get; set; }
+        public string PersonName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public virtual Users Users { get; set; }
-        public List<Orders> Orders { get; set; }
+        public string PhoneNumber { get; set; }
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
 
-        public static ObservableCollection<People> GetPeople (string connectionString)
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public static ObservableCollection<Person> GetPeople (string connectionString)
         {
-            string get = "select Id, Name, LastName, Address, Email, Telefono, UserID from People where Name is not null";
+            string get = "select PersonID, PersonName, LastName, Address, PhoneNumber, UserID from People where PersonName is not null";
 
-            var people = new ObservableCollection<People>();
+            var people = new ObservableCollection<Person>();
 
             try
             {
@@ -41,14 +41,13 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while(reader.Read())
                                 {
-                                    var person = new People();
-                                    person.Id = reader.GetInt32(0);
-                                    person.Name = reader.GetString(1);
+                                    var person = new Person();
+                                    person.PersonID = reader.GetInt32(0);
+                                    person.PersonName = reader.GetString(1);
                                     person.LastName = reader.GetString(2);
                                     person.Address = reader.GetString(3);
-                                    person.Email = reader.GetString(4);
-                                    person.Telefono = reader.GetString(5);
-                                    person.UserID = reader.GetInt32(6);
+                                    person.PhoneNumber = reader.GetString(4);
+                                    person.UserID = reader.GetInt32(5);
 
                                     people.Add(person);
                                 }
@@ -66,9 +65,9 @@ namespace MartinPosso_EzBotz.Core.Models
             return null;
         }
 
-        public static void AddData(string connectionString, string Name, string LastName, string Address, string Email, string Telefono, int UserID)
+        public static void AddData(string connectionString, string Name, string LastName, string Address, string phoneNumber, int UserID)
         {
-            string add = "INSERT INTO People (Name, LastName, Address, Email, Telefono, UserID) VALUES ('" + Name + "','" + LastName + "','" + Address + "','" + Email + "','" + Telefono + "'," + UserID + ")";
+            string add = "INSERT INTO People (PersonName, LastName, Address, PhoneNumber, UserID) VALUES ('" + Name + "','" + LastName + "','" + Address + "','" + phoneNumber + "'," + UserID + ")";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -87,9 +86,9 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static void UpdateData(String connectionString, string name, string lastname, string address, string email, string telefono, int userID, int personID)
+        public static void UpdateData(String connectionString, string name, string lastname, string address, string phoneNumber,  int userID, int personID)
         {
-            string update = "update People set Name ='" + name + "', LastName ='" + lastname + "', Address = '" + address + "', Email = '" + email + "', Telefono = '" + telefono + "', UserID = " + userID +  " where Id = " + personID;
+            string update = "update People set PersonName ='" + name + "', LastName ='" + lastname + "', Address = '" + address + "', PhoneNumber = '" + phoneNumber + "', UserID = " + userID + " where PersonID = " + personID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -111,7 +110,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void Delete(string connectionString, int id)
         {
-            string delete = "delete from People where Id=" + id;
+            string delete = "delete from People where PersonID=" + id;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

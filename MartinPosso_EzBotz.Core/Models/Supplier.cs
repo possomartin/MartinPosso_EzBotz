@@ -7,28 +7,26 @@ using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
 {
-
-    public class Orders
+    public class Supplier
     {
-        public int Id { get; set; }
-        public int PeopleID {get; set;}
-        public decimal Total { get; set; }
-        public int UserID { get; set; }
-        public int ProductID { get; set; }
-        public decimal Price { get; set; }
+        public int SupplierID { get; set; }
+        public string SupplierName { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
-        public static ObservableCollection<Orders> GetOrders(string connectionString)
+        public static ObservableCollection<Supplier> GetSuppliers(string connectionString)
         {
-            string get = "select Id, PeopleID, Total, UserID, ProductID, Price from Orders where Id is not null";
+            string get = "select SupplierID, SupplierName, Address, Email from Suppliers where SupplierName is not null";
 
-            var orders = new ObservableCollection<Orders>();
+            var suppliers = new ObservableCollection<Supplier>();
 
             try
             {
                 using(SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    
+
                     if(connection.State == System.Data.ConnectionState.Open)
                     {
                         using(SqlCommand cmd = connection.CreateCommand())
@@ -39,32 +37,31 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while(reader.Read())
                                 {
-                                    var order = new Orders();
+                                    var supplier = new Supplier();
+                                    supplier.SupplierID = reader.GetInt32(0);
+                                    supplier.SupplierName = reader.GetString(1);
+                                    supplier.Address = reader.GetString(2);
+                                    supplier.Email = reader.GetString(3);
 
-                                    order.Id = reader.GetInt32(0);
-                                    order.PeopleID = reader.GetInt32(1);
-                                    order.Total = reader.GetDecimal(2);
-                                    order.UserID = reader.GetInt32(3);
-                                    order.ProductID = reader.GetInt32(4);
-                                    order.Price = reader.GetDecimal(5);
-                                    orders.Add(order);
+                                    suppliers.Add(supplier);
                                 }
                             }
                         }
                     }
-                    return orders;
                 }
+
+                return suppliers;
             }
             catch(Exception eSql)
             {
-                Debug.WriteLine("Error: " + eSql);
+                Debug.WriteLine("Exception: " + eSql.Message);
             }
             return null;
         }
 
-        public static void AddData(string connectionString, int ClientID, decimal total, int UserID, int ProductID, decimal Price)
+        public static void AddData(string connectionString, string name, string address, string email)
         {
-            string add = "INSERT INTO Orders (PeopleID, Total, UserID, ProductID, Price) VALUES (" + ClientID + "," + total + "," + UserID + "," + ProductID + "," + Price + ")";
+            string add = "INSERT INTO Suppliers (SupplierName, Address, Email) values ('" + name + "','" + address + "','" + email +  "')";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -82,28 +79,9 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static void Delete(string connectionString, int id)
+        public static void UpdateData(String connectionString, string name, string address, string email, int supplierID)
         {
-            string delete = "delete from Orders where Id=" + id;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    using (SqlCommand cmd = connection.CreateCommand())
-                    {
-                        cmd.CommandText = delete;
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
-        public static void UpdateData(String connectionString, int PeopleID, decimal total, int userID, int productID, decimal price, int orderID)
-        {
-            string update = "update Orders set PeopleID =" + PeopleID + ", Total =" + total + ", UserID = '" + userID + "', ProductID ='" + productID + "', Price =" + price + " where Id = " + orderID;
+            string update = "update Suppliers set SupplierName ='" + name + "', Address ='" + address + "', Email ='" + email + "' where SupplierID = " + supplierID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -122,6 +100,24 @@ namespace MartinPosso_EzBotz.Core.Models
             }
 
         }
-    }
 
+        public static void Delete(string connectionString, int id)
+        {
+            string delete = "delete from Suppliers where SupplierID=" + id;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = delete;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+    }
 }

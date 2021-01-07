@@ -267,6 +267,7 @@
     <Content Include="Assets\Icon metro-visa.png" />
     <Content Include="Assets\Icon payment-diners.png" />
     <Content Include="Assets\Icon simple-paypal.png" />
+    <Content Include="Assets\no-product-image.png" />
     <Content Include="Assets\ready-player-one-banner.jpg" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Icon awesome-cart-arrow-down.png" />

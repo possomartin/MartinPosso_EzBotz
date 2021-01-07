@@ -12,8 +12,8 @@ namespace MartinPosso_EzBotz.Views
 {
     public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
-        public Users Users { get; set; }
-        public Products producto { get; set; }
+        public User Users { get; set; }
+        public Product producto { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace MartinPosso_EzBotz.Views
 
         private void SearchItems()
         {
-            var list = Products.GetProducts((App.Current as App).ConnectionString);
+            var list = Product.GetProducts((App.Current as App).ConnectionString);
 
             if (searchBar.Text == "")
             {
@@ -43,11 +43,11 @@ namespace MartinPosso_EzBotz.Views
             }
             else
             {
-                ObservableCollection<Products> listaProductos = new ObservableCollection<Products>();
+                ObservableCollection<Product> listaProductos = new ObservableCollection<Product>();
 
-                foreach(Products products in list)
+                foreach(Product products in list)
                 {
-                   if(products.Name.ToLower().StartsWith(searchBar.Text.ToLower()))
+                   if(products.ProductName.ToLower().StartsWith(searchBar.Text.ToLower()))
                    {
                         listaProductos.Add(products);
                    }
@@ -69,13 +69,15 @@ namespace MartinPosso_EzBotz.Views
                     var parameters = (string)e.Parameter;
                     if (parameters != "")
                     {
-                        foreach (Users user in Users.GetUsers((App.Current as App).ConnectionString))
+                        foreach (User user in User.GetUsers((App.Current as App).ConnectionString))
                         {
-                                if(user.Email.Equals(parameters))
-                                    Users = user;
+                            if (user.Email.Equals(parameters))
+                            {
+                                Users = user;
+                            }
                         }
 
-                        MessageDialog msg = new MessageDialog(Users.Email + " Id: " + Users.Id);
+                        MessageDialog msg = new MessageDialog(Users.Email + " ID: " + Users.UserID);
                         await msg.ShowAsync();
                     }
                 }
@@ -96,22 +98,22 @@ namespace MartinPosso_EzBotz.Views
 
         private void Featured(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ProductGallery.ItemsSource = Products.OrderBy((App.Current as App).ConnectionString, "ASC");
+            ProductGallery.ItemsSource = Product.OrderBy((App.Current as App).ConnectionString, "ASC");
         }
 
         private void Now(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ProductGallery.ItemsSource = Products.OrderBy((App.Current as App).ConnectionString, "DESC");
+            ProductGallery.ItemsSource = Product.OrderBy((App.Current as App).ConnectionString, "DESC");
         }
 
         private void BestSellings(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ProductGallery.ItemsSource = Products.OrderBy((App.Current as App).ConnectionString, "ASC");
+            ProductGallery.ItemsSource = Product.OrderBy((App.Current as App).ConnectionString, "ASC");
         }
 
         private void addcart(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var product = (Products)ProductGallery.SelectedItem;
+            var product = (Product)ProductGallery.SelectedItem;
             
             if (product != null)
             {
@@ -119,7 +121,7 @@ namespace MartinPosso_EzBotz.Views
             }
         }
 
-        private void SendData(Products product)
+        private void SendData(Product product)
         {
             var parameters = new MainPage();
             parameters.producto = product;

@@ -28,8 +28,8 @@ namespace MartinPosso_EzBotz.Views
         public ProductManagementPage()
         {
             InitializeComponent();
-            comboList.ItemsSource = Categories.GetCategories((App.Current as App).ConnectionString);
-            SuppliersCombo.ItemsSource = Suppliers.GetSuppliers((App.Current as App).ConnectionString);
+            comboList.ItemsSource = Category.GetCategories((App.Current as App).ConnectionString);
+            SuppliersCombo.ItemsSource = Supplier.GetSuppliers((App.Current as App).ConnectionString);
             UpdateList();
         }
 
@@ -59,10 +59,14 @@ namespace MartinPosso_EzBotz.Views
                 }
                 else
                 {
-                    var category = (Categories)comboList.SelectedItem;
-                    var supplier = (Suppliers)SuppliersCombo.SelectedItem;
+                    var category = (Category)comboList.SelectedItem;
+                    var supplier = (Supplier)SuppliersCombo.SelectedItem;
 
-                    Products.AddData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, path, decimal.Parse(Price.Text));
+                    Random random = new Random();
+
+                    int productCode = random.Next(1, 1000);
+
+                    Product.AddData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), productCode, supplier.SupplierID, category.CategoryID, path);
                     UpdateList();
 
                     EmptyBoxes();
@@ -77,14 +81,14 @@ namespace MartinPosso_EzBotz.Views
         }
         public void UpdateList()
         {
-            ProductsList.ItemsSource = Products.GetProducts((App.Current as App).ConnectionString);
+            ProductsList.ItemsSource = Product.GetProducts((App.Current as App).ConnectionString);
         }
 
         private void EliminarClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Eliminar de la base de datos
         {
-            var product = (Products)ProductsList.SelectedItem;
+            var product = (Product)ProductsList.SelectedItem;
 
-            Products.Delete((App.Current as App).ConnectionString, product.Id);
+            Product.Delete((App.Current as App).ConnectionString, product.ProductID);
             UpdateList();
 
             EmptyBoxes();
@@ -92,40 +96,40 @@ namespace MartinPosso_EzBotz.Views
 
         private void SelectedItem(object sender, SelectionChangedEventArgs e) //Cuando se selecciona un producto del listView
         {
-            var product = (Products)ProductsList.SelectedItem;
+            var product = (Product)ProductsList.SelectedItem;
             
 
             if (product != null)
             {
-                Id.Text = "" + product.Id;
-                Name.Text = "" + product.Name;
+                Id.Text = "" + product.ProductID;
+                Name.Text = "" + product.ProductName;
                 Stock.Text = "" + product.Stock;
                 Description.Text = "" + product.Description;
-                Price.Text = "" + product.Price;
+                ProductCode.Text = "" + product.ProductCode;
                 getImage(product.Image);
             }
           
         }
 
 
-        private void UpdateClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Actualizar informacion a la base de datos
+        private async void UpdateClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) //Actualizar informacion a la base de datos
         {
             try
             {
-                var category = (Categories)comboList.SelectedItem;
-                var supplier = (Suppliers)SuppliersCombo.SelectedItem;
+                var category = (Category)comboList.SelectedItem;
+                var supplier = (Supplier)SuppliersCombo.SelectedItem;
 
-                var product = (Products)ProductsList.SelectedItem;
+                var product = (Product)ProductsList.SelectedItem;
 
                 if (String.IsNullOrEmpty(path))
                 {
                     path = product.Image;
 
                     MessageDialog msg = new MessageDialog(product.Image);
-                    msg.ShowAsync();
+                    await msg.ShowAsync();
 
                 }
-                Products.UpdateData((App.Current as App).ConnectionString, category.Id, Int32.Parse(Stock.Text), Name.Text, Description.Text, supplier.Id, product.Id, path, decimal.Parse(Price.Text));
+                Product.UpdateData((App.Current as App).ConnectionString, Name.Text, Description.Text, Int32.Parse(Stock.Text), Int32.Parse(ProductCode.Text), supplier.SupplierID, category.CategoryID, path, product.ProductID);
                 UpdateList();
 
                 EmptyBoxes();
@@ -160,8 +164,6 @@ namespace MartinPosso_EzBotz.Views
                     image.DecodePixelWidth = 200;
 
                     path = folder.Path + "\\" + Name.Text + imageFile.FileType.ToString();
-
-                    
 
                     if (File.Exists(path))
                     {
@@ -201,6 +203,7 @@ namespace MartinPosso_EzBotz.Views
                     await image.SetSourceAsync(f.AsRandomAccessStream());
                     productImage.Source = image;
                 }
+
             }
             catch(Exception e)
             {
@@ -215,7 +218,7 @@ namespace MartinPosso_EzBotz.Views
             Name.Text = "";
             Stock.Text = "";
             Description.Text = "";
-            Price.Text = "";
+            ProductCode.Text = "";
             productImage.Source = null;
             comboList.SelectedItem = null;
             SuppliersCombo.SelectedItem = null;

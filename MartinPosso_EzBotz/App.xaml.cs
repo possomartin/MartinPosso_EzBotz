@@ -19,8 +19,7 @@ namespace MartinPosso_EzBotz
 
         //Connect to Database
 
-        private string connectionString = @"Data Source=MSI\SQLEXPRESS;Initial Catalog=OnlineShop;Integrated Security=True;Connect " +
-                      "Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private string connectionString = @"Data Source=MSI\SQLEXPRESS;Initial Catalog=TiendaEnLineaAutenticacion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public string ConnectionString { get => connectionString; set => connectionString = value; }
 

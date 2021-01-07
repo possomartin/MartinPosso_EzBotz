@@ -9,24 +9,24 @@ using System.Text;
 namespace MartinPosso_EzBotz.Core.Models
 {
 
-    public class Categories
+    public class Category
     {
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string description { get; set; }
 
-        public List<Products> ListaProductos;
-        public Categories()
+        public List<Product> ListaProductos;
+        public Category()
         {
-            ListaProductos = new List<Products>();
+            ListaProductos = new List<Product>();
         }
 
-        public static ObservableCollection<Categories> GetCategories(string connectionString)
+        public static ObservableCollection<Category> GetCategories(string connectionString)
         {
-            string get = "select Id, Name, Description from categories where Name is not null";
+            string get = "select CategoryID, CategoryName, Description from categories where CategoryName is not null";
 
-            var categories = new ObservableCollection<Categories>();
+            var categories = new ObservableCollection<Category>();
 
             try
             {
@@ -44,10 +44,10 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while(reader.Read())
                                 {
-                                    var category = new Categories();
-                                    category.Id = reader.GetInt32(0);
-                                    category.Name = reader.GetString(1);
-                                    category.Description = reader.GetString(2);
+                                    var category = new Category();
+                                    category.CategoryID = reader.GetInt32(0);
+                                    category.CategoryName = reader.GetString(1);
+                                    category.description = reader.GetString(2);
                                     categories.Add(category);
                                 }
                             }
@@ -65,7 +65,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void AddData(string connectionString, string name, string description)
         {
-            string add = "INSERT INTO Categories (Name, Description) VALUES ('" + name + "','" + description + "')";
+            string add = "INSERT INTO Categories (CategoryName, Description) VALUES ('" + name + "','" + description + "')";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -85,7 +85,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void UpdateData(String connectionString, string name, string description, int categoryID)
         {
-            string update = "update Categories set Name ='" + name + "', Description ='" + description + "' where Id = " + categoryID;
+            string update = "update Categories set CategoryName ='" + name + "', description ='" + description + "' where CategoryID = " + categoryID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -107,7 +107,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void Delete(string connectionString, int id)
         {
-            string delete = "delete from Categories where Id=" + id;
+            string delete = "delete from Categories where CategoryID=" + id;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -126,7 +126,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public override string ToString()
         {
-            return "Category: " + Name;
+            return "Category: " + CategoryName;
         }
     }
 }

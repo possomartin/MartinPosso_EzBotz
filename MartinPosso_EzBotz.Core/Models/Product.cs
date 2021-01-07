@@ -8,28 +8,23 @@ using System.Text;
 
 namespace MartinPosso_EzBotz.Core.Models
 {
-    public class Products
+    public class Product
     {
-        public int Id { get; set; }
-
-        public int CategoryID { get; set; }
-        public virtual Categories Categories { get; set; }
-
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public string Description { get; set; }
         public int Stock { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
+        public int ProductCode { get; set; }
+        public int SupplierID { get; set; }
+        public virtual Supplier Supplier { get; set; }
+        public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
         public string Image { get; set; }
 
-        public decimal Price { get; set; }
-        public int SupplierID { get; set; }
-        public virtual Suppliers Suppliers { get; set; }
-
-        public static void AddData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, string image, decimal price)
+        public static void AddData(String connectionString, string productName, string description, int stock, int productCode, int supplierID, int categoryID, string image)
         {
-            string add = "INSERT INTO Products (CategoryID, Stock, Name, Description, SupplierID, Image, Price) VALUES ('" + CategoryID + "','" + stock + "','" + name + "','" + description + "','" + supplierID + "','" + image + "'," + price + ")";
+            string add = "INSERT INTO Products (ProductName, Description, Stock, ProductCode, SupplierID, CategoryID, Image) VALUES ('" + productName + "','" + description + "'," + stock + "," + productCode + "," + supplierID + "," + categoryID + ",'" + image + "')";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -48,11 +43,11 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static ObservableCollection<Products> GetProducts(string connectionString)
+        public static ObservableCollection<Product> GetProducts(string connectionString)
         {
-            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image, Price from Products where Id is not null";
+            string get = "select ProductID, ProductName, Description, Stock, ProductCode, SupplierID, CategoryID, Image from Products where ProductID is not null";
 
-            var products = new ObservableCollection<Products>();
+            var products = new ObservableCollection<Product>();
 
             try
             {
@@ -70,16 +65,16 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while (reader.Read())
                                 {
-                                    var product = new Products();
+                                    var product = new Product();
 
-                                    product.Id = reader.GetInt32(0);
-                                    product.CategoryID = reader.GetInt32(1);
-                                    product.Stock = reader.GetInt32(2);
-                                    product.Name = reader.GetString(3);
-                                    product.Description = reader.GetString(4);
+                                    product.ProductID = reader.GetInt32(0);
+                                    product.ProductName = reader.GetString(1);
+                                    product.Description = reader.GetString(2);
+                                    product.Stock = reader.GetInt32(3);
+                                    product.ProductCode = reader.GetInt32(4);
                                     product.SupplierID = reader.GetInt32(5);
-                                    product.Image = reader.GetString(6);
-                                    product.Price = reader.GetDecimal(7);
+                                    product.CategoryID = reader.GetInt32(6);
+                                    product.Image = reader.GetString(7);
 
                                     products.Add(product);
                                 }
@@ -97,11 +92,11 @@ namespace MartinPosso_EzBotz.Core.Models
 
         }
 
-        public static ObservableCollection<Products> OrderBy(string connectionString, string order)
+        public static ObservableCollection<Product> OrderBy(string connectionString, string order)
         {
-            string get = "select Id, CategoryID, Stock, Name, Description, SupplierID, Image, Price from Products where Name is not null ORDER BY Id " + order + ", CategoryID " + order + ", Stock " + order + ", Name " + order + ", Description " + order + ", SupplierID " + order + ", Image " + order + ", Price " + order + "";
+            string get = "select ProductID, ProductName, Description, Stock, ProductCode, SupplierID, CategoryID, Image from Products where ProductName is not null ORDER BY ProductID " + order;
 
-            var products = new ObservableCollection<Products>();
+            var products = new ObservableCollection<Product>();
 
             try
             {
@@ -119,17 +114,17 @@ namespace MartinPosso_EzBotz.Core.Models
                             {
                                 while (reader.Read())
                                 {
-                                    var product = new Products();
+                                    var product = new Product();
 
-                                    product.Id = reader.GetInt32(0);
-                                    product.CategoryID = reader.GetInt32(1);
-                                    product.Stock = reader.GetInt32(2);
-                                    product.Name = reader.GetString(3);
-                                    product.Description = reader.GetString(4);
+                                    product.ProductID = reader.GetInt32(0);
+                                    product.ProductName = reader.GetString(1);
+                                    product.Description = reader.GetString(2);
+                                    product.Stock = reader.GetInt32(3);
+                                    product.ProductCode = reader.GetInt32(4);
                                     product.SupplierID = reader.GetInt32(5);
-                                    product.Image = reader.GetString(6);
-                                    product.Price = reader.GetDecimal(7);
-
+                                    product.CategoryID = reader.GetInt32(6);
+                                    product.Image = reader.GetString(7);
+                                
                                     products.Add(product);
                                 }
                             }
@@ -148,7 +143,7 @@ namespace MartinPosso_EzBotz.Core.Models
 
         public static void Delete(string connectionString, int id)
         {
-            string delete = "delete from Products where Id=" + id;
+            string delete = "delete from Products where ProductID=" + id;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -165,9 +160,9 @@ namespace MartinPosso_EzBotz.Core.Models
             }
         }
 
-        public static void UpdateData(String connectionString, int CategoryID, int stock, string name, string description, int supplierID, int productID, string image, decimal price)
+        public static void UpdateData(String connectionString, string productName, string description, int stock, int productCode, int supplierID, int categoryID, string image, int productID)
         {
-            string update = "update Products set CategoryID =" + CategoryID + ", Stock =" + stock + ", Name = '" + name + "', Description ='" + description + "', SupplierID =" + supplierID + ", Image ='" + image + "' , Price= " + price + " where Id = " + productID;
+            string update = "update Products set ProductName= '" + productName + "', Description= '" + description + "', Stock= " + stock + ", ProductCode= " + productCode + ", SupplierID= " + supplierID + ", CategoryID= " + categoryID + ", Image= '" + image + "' where ProductID = " + productID;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

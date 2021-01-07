@@ -27,22 +27,17 @@
                 <TextBox
                     x:Name="EmailTextbox"
                     CornerRadius="20"
-                    HorizontalAlignment="Left" Margin="274,437,0,0"
+                    HorizontalAlignment="Left" Margin="284,407,0,0"
                     Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
                 <PasswordBox
                     x:Name="PasswordTextbox"
                     CornerRadius="20"
-                    HorizontalAlignment="Left" Margin="274,375,0,0"
+                    HorizontalAlignment="Left" Margin="284,345,0,0"
                     VerticalAlignment="Top" Width="324"/>
                 <TextBox
                     x:Name="NameTextbox"
                     CornerRadius="20"
-                    HorizontalAlignment="Left" Margin="274,258,0,0"
-                    Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
-                <TextBox
-                    x:Name="LastNameTextbox"
-                    CornerRadius="20"
-                    HorizontalAlignment="Left" Margin="274,311,0,0"
+                    HorizontalAlignment="Left" Margin="284,276,0,0"
                     Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
                 <TextBlock
                     HorizontalAlignment="Left" Margin="210,139,0,0" Text="CREATE ACCOUNT"
@@ -64,16 +59,13 @@
                     Margin="512,562,0,0" VerticalAlignment="Top" Width="64"
                     Source="/Assets/Icon awesome-linkedin-in.png"/>
                 <TextBlock
-                    HorizontalAlignment="Left" Margin="207,265,0,0" Text="Name"
+                    HorizontalAlignment="Left" Margin="203,283,0,0"
+                    TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#707070" Width="78" Text="User Name"/>
+                <TextBlock
+                    HorizontalAlignment="Left" Margin="207,352,0,0" Text="Password"
                     TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#707070"/>
                 <TextBlock
-                    HorizontalAlignment="Left" Margin="193,318,0,0" Text="Last Name"
-                    TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#707070"/>
-                <TextBlock
-                    HorizontalAlignment="Left" Margin="197,382,0,0" Text="Password"
-                    TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#707070"/>
-                <TextBlock
-                    HorizontalAlignment="Left" Margin="209,444,0,0" Text="Email"
+                    HorizontalAlignment="Left" Margin="219,414,0,0" Text="Email"
                     TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#707070"/>
 
             </Grid>

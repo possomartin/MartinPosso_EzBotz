@@ -16,39 +16,39 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" BorderThickness="2" BorderBrush="#454545" Margin="13">
-                    <Image Source="/Assets/Icon awesome-credit-card.png" Height="72" Margin="133,123,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64"/>
-                    <Image Source="/Assets/Icon metro-discover.png" HorizontalAlignment="Left" Height="46" Margin="379,324,0,0" VerticalAlignment="Top" Width="32"/>
-                    <Image Source="/Assets/Icon metro-visa.png" HorizontalAlignment="Left" Height="46" Margin="428,324,0,0" VerticalAlignment="Top" Width="32"/>
-                    <Image Source="/Assets/Icon payment-diners.png" HorizontalAlignment="Left" Height="46" Margin="482,325,0,0" VerticalAlignment="Top" Width="32"/>
-                    <Image Source="/Assets/Icon simple-paypal.png" HorizontalAlignment="Left" Height="46" Margin="531,324,0,0" VerticalAlignment="Top" Width="24"/>
+                    <Image Source="/Assets/Icon awesome-credit-card.png" Height="60" Margin="127,106,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54"/>
+                    <Image Source="/Assets/Icon metro-discover.png" HorizontalAlignment="Left" Height="46" Margin="380,280,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon metro-visa.png" HorizontalAlignment="Left" Height="46" Margin="429,280,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon payment-diners.png" HorizontalAlignment="Left" Height="46" Margin="483,281,0,0" VerticalAlignment="Top" Width="32"/>
+                    <Image Source="/Assets/Icon simple-paypal.png" HorizontalAlignment="Left" Height="46" Margin="532,280,0,0" VerticalAlignment="Top" Width="24"/>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="124,214,0,0"
+                        HorizontalAlignment="Left" Margin="129,183,0,0"
                         Text="Card Holder Information" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#454545" FontSize="24"/>
 
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="229,128,0,0"
+                        HorizontalAlignment="Left" Margin="207,110,0,0"
                         Text="credit card" TextWrapping="Wrap" VerticalAlignment="Top"
-                        Foreground="#757575" FontSize="18"/>
+                        Foreground="#757575" FontSize="18" Height="20" Width="71"/>
                     <TextBlock
                         HorizontalAlignment="Left" Margin="35,29,0,0" Text="Shopping cart"
                         TextWrapping="Wrap" VerticalAlignment="Top"
                         Height="33" Width="180" FontSize="25" Foreground="#454545"/>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="132,280,0,0"
+                        HorizontalAlignment="Left" Margin="133,236,0,0"
                         Text="Card Number" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <TextBox
-                        x:Name="card" HorizontalAlignment="Left" Margin="132,320,0,0" Text=""
+                        x:Name="card" HorizontalAlignment="Left" Margin="133,276,0,0" Text=""
                         TextWrapping="Wrap" VerticalAlignment="Top" Width="194" TabIndex="2147483625"
                         MaxLength="16" BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" />
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="137,378,0,0"
+                        HorizontalAlignment="Left" Margin="135,349,0,0"
                         Text="Expiration Date" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <ComboBox
                         x:Name="Month" RenderTransformOrigin="1.156,7.875"
-                        Margin="137,422,0,0" Width="146" CornerRadius="20">
+                        Margin="135,393,0,0" Width="146" CornerRadius="20">
                         <ComboBoxItem>Enero</ComboBoxItem>
                         <ComboBoxItem>Febrero</ComboBoxItem>
                         <ComboBoxItem>Marzo</ComboBoxItem>
@@ -63,7 +63,7 @@
                         <ComboBoxItem>Diciembre</ComboBoxItem>
                     </ComboBox>
                     <ComboBox
-                        x:Name="Year" Margin="327,422,0,0" Width="120"
+                        x:Name="Year" Margin="325,393,0,0" Width="120"
                         CornerRadius="20">
                         <ComboBoxItem>2021</ComboBoxItem>
                         <ComboBoxItem>2022</ComboBoxItem>
@@ -73,33 +73,49 @@
                         <ComboBoxItem>2026</ComboBoxItem>
                     </ComboBox>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="139,487,0,0"
+                        HorizontalAlignment="Left" Margin="141,544,0,0"
                         Text="CVV" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="143,570,0,0"
+                        HorizontalAlignment="Left" Margin="143,625,0,0"
                         Text="Address" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <TextBlock
-                        HorizontalAlignment="Left" Margin="143,676,0,0"
+                        HorizontalAlignment="Left" Margin="141,731,0,0"
                         Text="Phone" TextWrapping="Wrap" VerticalAlignment="Top"
                         Foreground="#757575"/>
                     <TextBox
-                        x:Name="codigo" HorizontalAlignment="Left" Margin="208,510,0,0"
+                        x:Name="codigo" HorizontalAlignment="Left" Margin="210,567,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
                         BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="189"/>
                     <TextBox
-                        x:Name="address" HorizontalAlignment="Left" Margin="212,574,0,0"
+                        x:Name="address" HorizontalAlignment="Left" Margin="212,629,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top"
                         CornerRadius="20" Width="189" Height="88"/>
                     <TextBox
-                        x:Name="phone" HorizontalAlignment="Left" Margin="212,689,0,0"
+                        x:Name="phone" HorizontalAlignment="Left" Margin="210,744,0,0"
                         Text="" TextWrapping="Wrap" VerticalAlignment="Top"
                         CornerRadius="20" Width="189"/>
                     <Button
                         x:Name="Cancel" Foreground="#FFF" Background="#F67B7B"
                         Width="167" Height="45" CornerRadius="20"
-                        Content="Cancel" FontSize="20" FontFamily="Arial" Margin="0,749,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Click="Cancel_Click"/>
+                        Content="Cancel" FontSize="20" FontFamily="Arial" Margin="0,812,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Click="Cancel_Click"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="143,447,0,0"
+                        Text="Name" TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575"/>
+                    <TextBox
+                        x:Name="Name" HorizontalAlignment="Left" Margin="146,488,0,0"
+                        Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
+                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="129"/>
+                    <TextBlock
+                        HorizontalAlignment="Left" Margin="317,449,0,0"
+                        TextWrapping="Wrap" VerticalAlignment="Top"
+                        Foreground="#757575" Width="71" Text="Last Name"/>
+                    <TextBox
+                        x:Name="LastName" HorizontalAlignment="Left" Margin="327,487,0,0"
+                        Text="" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="3"
+                        BeforeTextChanging="card_BeforeTextChanging" CornerRadius="20" Width="114"/>
                 </Grid>
                 <Grid Grid.Column="1" BorderBrush="#454545" BorderThickness="2" Margin="13">
                     <ListView
@@ -110,16 +126,16 @@
                                 <StackPanel Orientation="Horizontal" Background="#757575" Margin="0,0,0,12">
                                     <TextBlock Text="Photo" Width="200" TextAlignment="Center" Foreground="#fff"/>
                                     <TextBlock Text="Name" Width="150" TextAlignment="Center" Foreground="#fff"/>
-                                    <TextBlock Text="Price" Width="150" TextAlignment="Center" Foreground="#fff"/>
+                                    <TextBlock Text="ProductCode" Width="150" TextAlignment="Center" Foreground="#fff"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.HeaderTemplate>
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="local:Products">
+                            <DataTemplate x:DataType="local:Product">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="{x:Bind Image}" Width="200"/>
-                                    <TextBlock Text="{x:Bind Name}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{x:Bind Price}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind ProductName}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind ProductCode}" Width="150" TextAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -127,7 +143,7 @@
                     <Button
                         x:Name="Save" Content="Confirm Purchase" CornerRadius="20"
                         Foreground="#fff" Background="#454545" FontFamily="Arial"
-                        HorizontalAlignment="Center" Margin="0,768,0,0" VerticalAlignment="Top" Width="227" Height="44" Click="Save_Click"/>
+                        HorizontalAlignment="Center" Margin="0,809,0,0" VerticalAlignment="Top" Width="227" Height="44" Click="Save_Click"/>
                     <TextBlock
                         HorizontalAlignment="Left" Margin="226,684,0,0" Text="Need help?"
                         TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" Foreground="#757575"/>
